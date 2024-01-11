@@ -8,6 +8,9 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      boxShadow: {
+        window: "0 0 1px 1px #1a1a1a",
+      },
     },
   },
   plugins: [],
