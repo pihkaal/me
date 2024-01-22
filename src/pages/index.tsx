@@ -1,12 +1,7 @@
 import Head from "next/head";
-import { JetBrains_Mono } from "next/font/google";
-import clsx from "clsx";
 import { Terminal } from "~/components/Terminal";
-
-const text = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+import { MusicVisualizer } from "~/components/MusicVisualizer";
+import { MusicPlayer } from "~/components/MusicPlayer";
 
 export default function Home() {
   return (
@@ -15,19 +10,28 @@ export default function Home() {
         <title>pihkaal</title>
       </Head>
       <main
-        className={clsx(
-          "insets-0 fixed flex h-screen w-screen flex-col gap-3 bg-[url(/wallpaper.jpg)] bg-cover p-3",
-          text.className,
-        )}
+        className={
+          "insets-0 fixed flex h-screen w-screen flex-col gap-3 bg-[url(/wallpaper.jpg)] bg-cover p-3 font-body"
+        }
       >
         <nav className="border border-red-500">toolbar</nav>
 
         <Terminal className="flex-1">nvim</Terminal>
 
-        <div className="flex h-[15%] gap-3">
-          <Terminal className="flex-1">console</Terminal>
+        <div className="flex gap-3">
+          <Terminal className="flex-1">
+            <MusicPlayer
+              title="Last Tango in Kyoto"
+              artist="Floating Bits"
+              album="Last Tango in Kyoto"
+              played={50}
+              duration={93}
+            />
+          </Terminal>
 
-          <Terminal className="flex-1">cava</Terminal>
+          <Terminal className="flex-1">
+            <MusicVisualizer />
+          </Terminal>
         </div>
       </main>
     </>
