@@ -22,34 +22,3 @@ export const Text = (props: {
   </span>
 );
 
-export const Text2 = (props: { children: string | Array<string> }) => {
-  const text = Array.isArray(props.children)
-    ? props.children.join("")
-    : props.children;
-  const parts = text.split("$");
-
-  const nodes = parts.map((x, i) => {
-    let colorId = 7;
-    let bold = false;
-    if (x.startsWith("#") && x[1] && "0123456789abcdef".includes(x[1])) {
-      colorId = parseInt(x[1], 16);
-      x = x.substring(2);
-
-      if (x[0] && x.startsWith("*")) {
-        bold = true;
-        x = x.substring(1);
-      }
-    }
-
-    const colors = config.theme.extend.colors as Record<string, string>;
-    const color =
-      colors[`color${colorId}`] ?? config.theme.extend.colors.color7;
-    return (
-      <span key={i} style={{ color, fontWeight: bold ? 800 : 400 }}>
-        {x}
-      </span>
-    );
-  });
-
-  return nodes;
-};
