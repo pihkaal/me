@@ -8,7 +8,10 @@ export const Terminal = (props: {
 }) => {
   const terminalRef = useRef<HTMLDivElement>(null);
 
-  const [size, setSize] = useState<{ cols: number; rows: number }>();
+  const [size, setSize] = useState<{ cols: number; rows: number }>({
+    cols: -1,
+    rows: -1,
+  });
 
   useEffect(() => {
     const precision = 300;
@@ -55,7 +58,7 @@ export const Terminal = (props: {
         )}
         style={{ backdropFilter: "blur(2px)" }}
       >
-        {size && props.children}
+        {size.cols > -1 && props.children}
       </div>
     </TerminalContextProvider>
   );

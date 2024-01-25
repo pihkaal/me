@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-const TerminalContext = createContext<{ cols: number; height: number } | null>(
+const TerminalContext = createContext<{ cols: number; rows: number } | null>(
   null,
 );
 
