@@ -53,7 +53,7 @@ export const Terminal = (props: {
       <div
         ref={terminalRef}
         className={clsx(
-          "overflow-hidden rounded-lg border-2 border-borderInactive bg-background bg-opacity-80 text-lg text-color7 text-foreground shadow-window transition-colors duration-[500ms] ease-out hover:border-borderActive hover:duration-[200ms]",
+          "overflow-hidden whitespace-pre rounded-lg border-2 border-borderInactive bg-background bg-opacity-80 text-lg text-color7 text-foreground shadow-window transition-colors duration-[500ms] ease-out hover:border-borderActive hover:duration-[200ms]",
           props.className,
         )}
         style={{ backdropFilter: "blur(2px)" }}
