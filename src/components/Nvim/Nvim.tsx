@@ -5,14 +5,14 @@ export const Nvim = () => {
   return (
     <div>
       <div className="flex">
-        <div className="w-fit bg-green-500">
+        <div className="w-fit">
           <NvimTree />
         </div>
-        <div className="flex-1 bg-blue-500"></div>
+        <div className="flex-1"></div>
       </div>
 
-      <div className="h-fit bg-red-500">
-        <NvimStatusBar />
+      <div className="h-fit bg-[#29293c]">
+        <NvimStatusBar label="NORMAL" fileName="README.md" />
       </div>
     </div>
   );
