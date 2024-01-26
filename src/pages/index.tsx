@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
       <main
         className={
-          "insets-0 fixed flex h-screen w-screen flex-col gap-3 bg-[url(/wallpaper.jpg)] bg-cover p-3 font-body"
+          "insets-0 fixed flex h-screen w-screen flex-col gap-3 bg-[url(/wallpaper.jpg)] bg-cover p-3 font-body leading-[26px]"
         }
       >
         <nav className="border border-red-500">toolbar</nav>
@@ -22,7 +22,7 @@ export default function Home() {
         </Terminal>
 
         <div className="flex gap-3">
-          <Terminal className="flex-1">
+          <Terminal className="flex-1 select-none">
             <MusicPlayer
               title="Last Tango in Kyoto"
               artist="Floating Bits"
