@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 
-const TerminalContext = createContext<{ cols: number; rows: number } | null>(
-  null,
-);
+const TerminalContext = createContext<
+  { cols: number; rows: number } | undefined
+>(undefined);
 
 export const TerminalContextProvider = TerminalContext.Provider;
 

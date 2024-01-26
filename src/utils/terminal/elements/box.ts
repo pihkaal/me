@@ -1,5 +1,5 @@
 import { type Cell, type CellStyle } from "../cell";
-import { TerminalCanvas } from "../canvas";
+import { TerminalRenderer } from "../renderer";
 import { type TerminalElement } from "../element";
 
 export class TerminalBoxElement implements TerminalElement {
@@ -10,7 +10,7 @@ export class TerminalBoxElement implements TerminalElement {
     public readonly height: number,
     style: CellStyle = {},
   ) {
-    const canvas = new TerminalCanvas(width, height, style);
+    const canvas = new TerminalRenderer(width, height, style);
 
     if (width == 1 && height > 1) {
       for (let y = 0; y < height - 1; y++) {

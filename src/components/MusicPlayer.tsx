@@ -1,6 +1,9 @@
 import { useTerminal } from "~/context/TerminalContext";
-import { TerminalCanvas } from "~/utils/terminal/canvas";
+import { TerminalRenderer } from "~/utils/terminal/renderer";
 import { TerminalBoxElement } from "~/utils/terminal/elements/box";
+import { TerminalCanvas } from "./terminal/TerminalCanvas";
+import { TerminalText } from "./terminal/TerminalText";
+import { useEffect, useState } from "react";
 
 const theme = {
   black: "#45475a",
@@ -21,8 +24,33 @@ const formatDurationMSS = (duration: number) => {
 
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
-
 export const MusicPlayer = (props: {
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  played: number;
+}) => {
+  const { cols } = useTerminal();
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
+  return (
+    <TerminalCanvas width={cols} height={5}>
+      <TerminalText x={1} y={0}>
+        Playback
+      </TerminalText>
+    </TerminalCanvas>
+  );
+};
+export const MusicPlayer2 = (props: {
   title: string;
   artist: string;
   album: string;
@@ -33,7 +61,7 @@ export const MusicPlayer = (props: {
   formatDurationMSS;
 
   const { cols } = useTerminal();
-  const canvas = new TerminalCanvas(cols, 5);
+  const canvas = new TerminalRenderer(cols, 5);
 
   canvas.writeElement(
     new TerminalBoxElement(canvas.width, canvas.height),
@@ -45,7 +73,7 @@ export const MusicPlayer = (props: {
     foreground: theme.magenta,
   });
 
-  const inner = new TerminalCanvas(canvas.width - 2, canvas.height - 2);
+  const inner = new TerminalRenderer(canvas.width - 2, canvas.height - 2);
   // Title and Artist
   inner.write(2, 0, "Last Tango in Kyoto · Floating Bits", {
     foreground: theme.cyan,

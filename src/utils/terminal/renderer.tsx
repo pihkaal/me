@@ -3,7 +3,7 @@ import { floorAll } from "../math";
 import { type CellStyle, type Cell } from "./cell";
 import { type TerminalElement } from "./element";
 
-export class TerminalCanvas implements TerminalElement {
+export class TerminalRenderer implements TerminalElement {
   public readonly data: Array<Array<Cell>>;
 
   constructor(
@@ -74,10 +74,10 @@ export class TerminalCanvas implements TerminalElement {
     y: number,
     width: number,
     height: number,
-  ): TerminalCanvas {
+  ): TerminalRenderer {
     [x, y, width, height] = floorAll(x, y, width, height);
 
-    const canvas = new TerminalCanvas(width, height);
+    const canvas = new TerminalRenderer(width, height);
     for (let cy = 0; cy < height; cy++) {
       for (let cx = 0; cx < width; cx++) {
         canvas.apply(cx, cy, this.data[y + cy][x + cx]);
@@ -89,7 +89,7 @@ export class TerminalCanvas implements TerminalElement {
 
   render(): Array<ReactNode> {
     const nodes: Array<ReactNode> = [];
-
+    console.log("here2");
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const cell = this.data[y][x];
