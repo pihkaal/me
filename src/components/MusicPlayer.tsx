@@ -39,7 +39,7 @@ export const MusicPlayer = (props: {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [setPlayed]);
+  }, [setPlayed, props.duration]);
 
   canvas.writeElement(
     new TerminalBoxElement(canvas.width, canvas.height),
@@ -55,7 +55,7 @@ export const MusicPlayer = (props: {
   // Title and Artist
   inner.write(2, 0, `${props.title} · ${props.artist}`, {
     foreground: theme.cyan,
-    fontWeight: 800,
+    fontWeight: 700,
   });
   inner.apply(0, 0, {
     char: "\udb81\udc0a",
@@ -69,16 +69,16 @@ export const MusicPlayer = (props: {
   // Bar
   inner.write(0, 2, " ".repeat(inner.width), {
     foreground: theme.green,
-    background: theme.black,
+    background: "#55576d",
   });
   inner.write(0, 2, " ".repeat((inner.width * played) / props.duration), {
-    foreground: theme.black,
+    foreground: "#55576d",
     background: theme.green,
   });
   const time = `${formatDurationMSS(played)}/${formatDurationMSS(
     props.duration,
   )}`;
-  inner.write(inner.width / 2 - time.length / 2, 2, time);
+  inner.write(inner.width / 2 - time.length / 2, 2, time, { fontWeight: 800 });
 
   canvas.writeElement(inner, 1, 1);
   return <p>{canvas.render()}</p>;

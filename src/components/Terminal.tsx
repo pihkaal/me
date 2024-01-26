@@ -38,6 +38,8 @@ export const Terminal = (props: {
 
     calculateSize();
 
+    setTimeout(() => calculateSize(), 1);
+
     window.addEventListener("resize", calculateSize);
 
     return () => {

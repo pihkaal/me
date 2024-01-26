@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Terminal } from "~/components/Terminal";
 import { MusicVisualizer } from "~/components/MusicVisualizer";
 import { MusicPlayer } from "~/components/MusicPlayer";
+import { Nvim } from "~/components/Nvim/Nvim";
 
 export default function Home() {
   return (
@@ -16,7 +17,9 @@ export default function Home() {
       >
         <nav className="border border-red-500">toolbar</nav>
 
-        <Terminal className="flex-1">nvim</Terminal>
+        <Terminal className="flex-1">
+          <Nvim />
+        </Terminal>
 
         <div className="flex gap-3">
           <Terminal className="flex-1">
