@@ -24,7 +24,6 @@ export default function Home() {
               title="Last Tango in Kyoto"
               artist="Floating Bits"
               album="Last Tango in Kyoto"
-              played={50}
               duration={93}
             />
           </Terminal>

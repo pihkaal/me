@@ -89,7 +89,7 @@ export class TerminalRenderer implements TerminalElement {
 
   render(): Array<ReactNode> {
     const nodes: Array<ReactNode> = [];
-    console.log("here2");
+
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const cell = this.data[y][x];
