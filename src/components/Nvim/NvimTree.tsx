@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useApp } from "~/context/AppContext";
 import { useTerminal } from "~/context/TerminalContext";
-import { api } from "~/utils/api";
+import { FILE_STYLES, File } from "~/utils/filesystem";
 import { type Cell } from "~/utils/terminal/cell";
 import { TerminalRenderer } from "~/utils/terminal/renderer";
 import { theme } from "~/utils/terminal/theme";
+import { Manifest } from "~/utils/types";
 
 const PATH_FOLDED: Cell = {
   char: "",
@@ -14,36 +16,6 @@ const PATH_UNFOLDED: Cell = {
   char: "",
   foreground: theme.blue,
 };
-
-const FILE_STYLES = {
-  directory: {
-    char: "\ue6ad", //  \ue6ad ||| \ueaf6
-    foreground: theme.blue,
-  },
-  md: {
-    char: "\ue73e",
-    foreground: theme.blue,
-  },
-  asc: {
-    char: "\uf43d",
-    foreground: theme.yellow,
-  },
-} as const satisfies Record<string, Cell>;
-
-type FileType = keyof typeof FILE_STYLES;
-
-type File = {
-  name: string;
-} & (
-  | {
-      type: Exclude<FileType, "directory">;
-    }
-  | {
-      type: "directory";
-      children: Array<File>;
-      folded: boolean;
-    }
-);
 
 const FILES_SRC: Array<File> = [
   {
@@ -59,11 +31,39 @@ const FILES_SRC: Array<File> = [
   { name: "pubkey.asc", type: "asc" },
 ];
 
+const buildFileTree = (manifest: Manifest): Array<File> => {
+  if (manifest === undefined) return [];
+
+  const files: Array<File> = [];
+  manifest.projects.forEach(project => {
+    if (project.name === "pihkaal") {
+      project.files.forEach(file => {
+        files.push({
+          name: file,
+          type: "md",
+        });
+      });
+    } else {
+      files.push({
+        name: project.name,
+        type: "directory",
+        folded: true,
+        children: project.files.map(file => ({
+          name: file,
+          type: "md",
+        })),
+      });
+    }
+  });
+
+  return files;
+};
+
 export const NvimTree = () => {
-  const { data: repos } = api.github.getRepos.useQuery();
+  const manifest = useApp();
 
   const [selected, setSelected] = useState(0);
-  const [files, setFiles] = useState(FILES_SRC);
+  const [files, setFiles] = useState(buildFileTree(manifest));
 
   const { cols: width, rows: height } = useTerminal();
   const canvas = new TerminalRenderer(width * 0.2, height - 2, {

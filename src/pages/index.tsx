@@ -3,10 +3,11 @@ import { Terminal } from "~/components/Terminal";
 import { MusicVisualizer } from "~/components/MusicVisualizer";
 import { MusicPlayer } from "~/components/MusicPlayer";
 import { Nvim } from "~/components/Nvim/Nvim";
+import { AppContextProvider } from "~/context/AppContext";
 
 export default function Home() {
   return (
-    <>
+    <AppContextProvider>
       <Head>
         <title>pihkaal</title>
       </Head>
@@ -36,6 +37,6 @@ export default function Home() {
           </Terminal>
         </div>
       </main>
-    </>
+    </AppContextProvider>
   );
 }
