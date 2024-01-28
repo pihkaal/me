@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: mono;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src:
+    url("/fonts/JetBrainsMonoNFM-Bold.woff2") format("woff2"),
+    url("/fonts/JetBrainsMonoNFM-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src:
+    url("/fonts/JetBrainsMonoNFM-Regular.woff2") format("woff2"),
+    url("/fonts/JetBrainsMonoNFM-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src:
+    url("/fonts/JetBrainsMonoNFM-Medium.woff2") format("woff2"),
+    url("/fonts/JetBrainsMonoNFM-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
