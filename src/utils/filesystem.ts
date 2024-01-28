@@ -25,6 +25,7 @@ export const FILE_STYLES: Record<string, Cell> = {
 
 export type File = {
   name: string;
+  path: string;
 } & (
   | {
       type: "file";
@@ -54,17 +55,20 @@ export const buildFileTree = (manifest: Manifest): Array<File> => {
       project.files.forEach(file => {
         files.push({
           name: file,
+          path: file,
           type: "file",
         });
       });
     } else {
       files.push({
         name: project.name,
+        path: project.name,
         type: "directory",
         folded: true,
         children: sortFiles(
           project.files.map(file => ({
             name: file,
+            path: `${project.name}/${file}`,
             type: "file",
           })),
         ),

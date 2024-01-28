@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTerminal } from "~/context/TerminalContext";
 import {
   DEFAULT_FILE_STYLE,
@@ -23,6 +24,7 @@ const PATH_UNFOLDED: Cell = {
 export const NvimTree = (props: { files: Array<File> }) => {
   const [selected, setSelected] = useState(0);
   const [files, setFiles] = useState(props.files);
+  const navigate = useNavigate();
 
   const { cols: width, rows: height } = useTerminal();
   const canvas = new TerminalRenderer(width * 0.2, height - 2, {
@@ -108,6 +110,9 @@ export const NvimTree = (props: { files: Array<File> }) => {
           if (current.type === "directory") {
             current.folded = !current.folded;
             setFiles([...files]);
+          } else {
+            //document.location.href = `?view=${current.path}`
+            navigate(`?view=${current.path}`);
           }
           break;
       }
