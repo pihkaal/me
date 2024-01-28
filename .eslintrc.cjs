@@ -6,11 +6,13 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint"],
+  env: { browser: true, es2020: true },
+  plugins: ["@typescript-eslint", "react-refresh"],
   extends: [
-    "next/core-web-vitals",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:react-hooks/recommended",
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
@@ -32,6 +34,11 @@ const config = {
       {
         checksVoidReturn: { attributes: false },
       },
+    ],
+
+    "react-refresh/only-export-components": [
+      "warn",
+      { allowConstantExport: true },
     ],
   },
 };

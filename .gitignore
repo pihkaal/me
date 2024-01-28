@@ -3,18 +3,6 @@
 /.pnp
 .pnp.js
 
-# Testing
-/coverage
-
-# Database
-/prisma/db.sqlite
-/prisma/db.sqlite-journal
-
-# Next.js
-/.next/
-/out/
-next-env.d.ts
-
 # Production
 /build
 
@@ -31,9 +19,6 @@ yarn-error.log*
 # Local env files
 .env
 .env*.local
-
-# Vercel
-.vercel
 
 # Typescript
 *.tsbuildinfo
