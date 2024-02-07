@@ -12,6 +12,7 @@ const fetchData = async (
   repo: string,
   file: string,
 ): Promise<string | null> => {
+  return `Displaying ${repo}/${file} on branch ${branch}`;
   try {
     const response = await axios.get<string>(
       `https://raw.githubusercontent.com/pihkaal/${repo}/${branch}/${file}`,

@@ -4,6 +4,7 @@ import { MusicVisualizer } from "./components/MusicVisualizer";
 import { Nvim } from "./components/Nvim/Nvim";
 import { Terminal } from "./components/Terminal";
 import { AppContextProvider } from "./context/AppContext";
+import { Waybar } from "./components/Waybar/Waybar";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
             "insets-0 fixed flex h-screen w-screen flex-col gap-3 bg-[url(/wallpaper.jpg)] bg-cover p-3 font-body leading-[26px]"
           }
         >
-          <nav className="border border-red-500">toolbar</nav>
+          <Waybar />
 
           <Terminal className="flex-1">
             <Nvim />

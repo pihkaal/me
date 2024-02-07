@@ -14,9 +14,21 @@ const AppContext = createContext<Manifest | null>(null);
 export const AppContextProvider = (props: {
   children: Array<ReactNode> | ReactNode;
 }) => {
-  const [manifest, setManifest] = useState<Manifest | null>(null);
+  const [manifest, setManifest] = useState<Manifest | null>({
+    projects: [
+      {
+        name: "tlock",
+        files: ["README.md"],
+      },
+      {
+        name: "pihkaal",
+        files: ["README.md", "pubkey.asc"],
+      },
+    ],
+  });
 
   useEffect(() => {
+    return;
     void axios
       .get<Manifest>(
         "https://raw.githubusercontent.com/pihkaal/pihkaal/main/manifest.json",
