@@ -1,20 +1,6 @@
-import { useTerminal } from "~/context/TerminalContext";
-import { TerminalRenderer } from "~/utils/terminal/renderer";
-import { TerminalBoxElement } from "~/utils/terminal/elements/box";
 import { useEffect, useState } from "react";
-
-const theme = {
-  black: "#45475a",
-  red: "#f38ba8",
-  green: "#a6e3a1",
-  yellow: "#f9e2af",
-  blue: "#89bafa",
-  magenta: "#f5c2e7",
-  cyan: "#94e2d5",
-  white: "#bac2de",
-  grey: "#585B70",
-  lightGrey: "#a6adc8",
-};
+import { Bar, Frame, Group, Terminal, Text, useTerminal } from "react-dom-curse";
+import { theme } from "~/utils/theme";
 
 const formatDurationMSS = (duration: number) => {
   const minutes = Math.floor(duration / 60);
@@ -29,8 +15,7 @@ export const MusicPlayer = (props: {
   album: string;
   duration: number;
 }) => {
-  const { cols } = useTerminal();
-  const canvas = new TerminalRenderer(cols, 5);
+  const { terminal } = useTerminal();
 
   const [played, setPlayed] = useState(0);
   useEffect(() => {
@@ -41,45 +26,58 @@ export const MusicPlayer = (props: {
     return () => clearInterval(interval);
   }, [setPlayed, props.duration]);
 
-  canvas.writeElement(
-    new TerminalBoxElement(canvas.width, canvas.height),
-    0,
-    0,
-  );
-
-  canvas.write(1, 0, "Playback".substring(0, Math.min(8, canvas.width - 2)), {
-    foreground: theme.magenta,
-  });
-
-  const inner = new TerminalRenderer(canvas.width - 2, canvas.height - 2);
-  // Title and Artist
-  inner.write(2, 0, `${props.title} · ${props.artist}`, {
-    foreground: theme.cyan,
-    fontWeight: 700,
-  });
-  inner.apply(0, 0, {
-    char: "\udb81\udc0a",
-    foreground: theme.cyan,
-    fontWeight: 800,
-  });
-
-  // Album
-  inner.write(0, 1, props.album, { foreground: theme.yellow });
-
-  // Bar
-  inner.write(0, 2, " ".repeat(inner.width), {
-    foreground: theme.green,
-    background: "#55576d",
-  });
-  inner.write(0, 2, " ".repeat((inner.width * played) / props.duration), {
-    foreground: "#55576d",
-    background: theme.green,
-  });
   const time = `${formatDurationMSS(played)}/${formatDurationMSS(
     props.duration,
   )}`;
-  inner.write(inner.width / 2 - time.length / 2, 2, time, { fontWeight: 800 });
 
-  canvas.writeElement(inner, 1, 1);
-  return <p>{canvas.render()}</p>;
+  return (
+      <Group
+        x={0}
+        y={0}
+        width={terminal.width}
+        height={terminal.height}
+        style={{ foreground: theme.white }}
+      >
+        <Frame
+          x={0}
+          y={0}
+          width={terminal.width}
+          height={terminal.height}
+          border="single"
+        >
+          <Text x={0} y={0} style={{ foreground: theme.cyan }}>
+            {props.title} · {props.artist}
+          </Text>
+          <Text x={0} y={1} style={{ foreground: theme.yellow }}>
+            {props.album}
+          </Text>
+
+          <Group x={0} y={2} width={terminal.width} height={1}>
+            <Bar
+              x={0}
+              y={0}
+              style={{ foreground: theme.green, background: "#55576d" }}
+              char=" "
+              size={terminal.width}
+              direction="horizontal"
+            />
+            <Bar
+              x={0}
+              y={0}
+              style={{ foreground: "#55576d", background: theme.green }}
+              char=" "
+              size={terminal.width * (played / props.duration)}
+              direction="horizontal"
+            />
+            <Text x={Math.floor(terminal.width / 2 - time.length / 2)} y={0}>
+              {time}
+            </Text>
+          </Group>
+        </Frame>
+
+        <Text x={1} y={0} style={{ foreground: theme.magenta }}>
+          Playback
+        </Text>
+      </Group>
+  );
 };
