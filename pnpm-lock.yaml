@@ -15,8 +15,8 @@ dependencies:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
   react-dom-curse:
-    specifier: github:pihkaal/react-dom-curse
-    version: git@github.com+pihkaal/react-dom-curse/99f542457ffbe8dbba08261c8b423a7546fea56e(@types/react@18.2.47)
+    specifier: file:../react-dom-curse
+    version: file:../react-dom-curse(@types/react@18.2.47)
   react-router-dom:
     specifier: ^6.21.3
     version: 6.21.3(react-dom@18.2.0)(react@18.2.0)
@@ -3440,11 +3440,10 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  git@github.com+pihkaal/react-dom-curse/99f542457ffbe8dbba08261c8b423a7546fea56e(@types/react@18.2.47):
-    resolution: {commit: 99f542457ffbe8dbba08261c8b423a7546fea56e, repo: git@github.com:pihkaal/react-dom-curse.git, type: git}
-    id: git@github.com+pihkaal/react-dom-curse/99f542457ffbe8dbba08261c8b423a7546fea56e
+  file:../react-dom-curse(@types/react@18.2.47):
+    resolution: {directory: ../react-dom-curse, type: directory}
+    id: file:../react-dom-curse
     name: react-dom-curse
-    version: 0.0.0
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
