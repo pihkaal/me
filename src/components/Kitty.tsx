@@ -10,6 +10,6 @@ export const Kitty = (props: { children?: ReactNode; className?: string }) => (
     )}
     style={{ backdropFilter: "blur(2px)" }}
   >
-    <Terminal>{props.children}</Terminal>
+    <Terminal font="20px JetbrainsMono">{props.children}</Terminal>
   </div>
 );
