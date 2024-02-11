@@ -1,10 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
-import { MusicPlayer } from "./components/MusicPlayer";
 import { Kitty } from "./components/Kitty";
 import { AppContextProvider } from "./context/AppContext";
 import { Waybar } from "./components/Waybar/Waybar";
-import { MusicVisualizer } from "./components/MusicVisualizer";
 import { useState } from "react";
+import { Music } from "./components/Music/Music";
 
 function App() {
   const [clicked, setClicked] = useState(false);
@@ -23,13 +22,7 @@ function App() {
             <Kitty className="flex-1"></Kitty>
 
             <div className="flex h-[142px] gap-3">
-              <Kitty className="flex-1 select-none">
-                <MusicPlayer />
-              </Kitty>
-
-              <Kitty className="flex-1">
-                <MusicVisualizer />
-              </Kitty>
+              <Music />{" "}
             </div>
           </main>
         ) : (
