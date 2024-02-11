@@ -21,11 +21,13 @@ export const Cava = () => {
       audioContext.current.createMediaElementSource(audioElement);
     audioSource.connect(analyser.current);
     analyser.current.connect(audioContext.current.destination);
-    audioElement.play();
+    void audioElement.play();
+
+    const analyzerElement = analyser.current;
 
     return () => {
       audioSource.disconnect();
-      analyser.current.disconnect();
+      analyzerElement.disconnect();
     };
   }, []);
 
@@ -33,7 +35,7 @@ export const Cava = () => {
     analyser.current.getByteFrequencyData(dataArray.current);
 
     const barCount = Math.floor(width / 3);
-    const barHeights = [];
+    const newBarHeights = [];
 
     for (let i = 0; i < barCount; i++) {
       const startIndex = Math.floor((i / barCount) * bufferLength.current);
@@ -41,10 +43,22 @@ export const Cava = () => {
       const slice = dataArray.current.slice(startIndex, endIndex);
       const sum = slice.reduce((acc, val) => acc + val, 0);
       const average = sum / slice.length;
-      barHeights.push(average);
+      newBarHeights.push(average);
     }
 
-    setBarHeights(barHeights);
+    const stateBarHeights =
+      barHeights.length !== newBarHeights.length
+        ? new Array<number>(newBarHeights.length).fill(0)
+        : barHeights;
+
+    const smoothedBarHeights = newBarHeights.map((height, i) => {
+      const smoothingFactor = 0.1;
+      return (
+        stateBarHeights[i] + (height - stateBarHeights[i]) * smoothingFactor
+      );
+    });
+
+    setBarHeights(smoothedBarHeights);
   });
 
   return (
