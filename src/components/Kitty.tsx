@@ -77,9 +77,9 @@ export const Kitty = (props: {
           lineHeight: `${CHAR_HEIGHT}px`,
           ...(activeKitty === id
             ? {
-              borderColor: "#cdd6f4",
-              animationDuration: "200ms",
-            }
+                borderColor: "#cdd6f4",
+                animationDuration: "200ms",
+              }
             : {}),
         }}
         ref={container}
