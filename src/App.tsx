@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Kitty } from "./components/Kitty";
 import { AppProvider } from "./context/AppContext";
 import { Music } from "./components/Music";
-// import { Nvim } from "./components/Nvim";
+import { Nvim } from "./components/Nvim";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -13,7 +13,7 @@ export default function App() {
         {loggedIn ? (
           <div className="flex h-full w-full flex-col">
             <Kitty className="w-full flex-1 pb-1 pl-2 pr-2 pt-2">
-              {/* <Nvim /> */}
+              <Nvim />
             </Kitty>
 
             <Music />
@@ -32,4 +32,3 @@ export default function App() {
     </AppProvider>
   );
 }
-

@@ -18,8 +18,12 @@ export const SpotifyPlayer = (props: {
     <div
       className="grid select-none"
       style={{
-        gridTemplateColumns: `${CHAR_WIDTH}px ${CHAR_WIDTH * 8}px 1fr ${CHAR_WIDTH}px`,
-        gridTemplateRows: `${CHAR_HEIGHT}px ${CHAR_HEIGHT * 3}px ${CHAR_HEIGHT}px`,
+        gridTemplateColumns: `${CHAR_WIDTH}px ${
+          CHAR_WIDTH * 8
+        }px 1fr ${CHAR_WIDTH}px`,
+        gridTemplateRows: `${CHAR_HEIGHT}px ${
+          CHAR_HEIGHT * 3
+        }px ${CHAR_HEIGHT}px`,
       }}
     >
       {kitty && <InnerSpotifyPlayer {...props} {...kitty} />}
@@ -35,7 +39,9 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
   );
   const emptySize = props.cols - 2 - fillSize;
 
-  const timeString = `${formatMMSS(props.played)}/${formatMMSS(props.duration)}`;
+  const timeString = `${formatMMSS(props.played)}/${formatMMSS(
+    props.duration,
+  )}`;
   const timeStringLeft = Math.round(
     (props.cols - 2) / 2 - timeString.length / 2,
   );

@@ -51,7 +51,7 @@ export const Kitty = (props: {
 
     setWidth(`${width}px`);
     setHeight(`${height}px`);
-    setContext((ctx) => ({ ...(ctx ?? { active: false }), rows, cols }));
+    setContext(ctx => ({ ...(ctx ?? { active: false }), rows, cols }));
   }, []);
 
   useEffect(() => {
@@ -76,9 +76,9 @@ export const Kitty = (props: {
           lineHeight: `${CHAR_HEIGHT}px`,
           ...(activeKitty === id
             ? {
-              borderColor: "#cdd6f4",
-              animationDuration: "200ms",
-            }
+                borderColor: "#cdd6f4",
+                animationDuration: "200ms",
+              }
             : {}),
         }}
         ref={container}
