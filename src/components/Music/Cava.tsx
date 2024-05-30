@@ -46,12 +46,17 @@ const FrequencyBar = (props: {
 
   const emptyBlocksCount =
     props.height - fullBlocksCount - (remainderIndex > 0 ? 1 : 0);
-  bar += `${" ".repeat(WIDTH)}\n`.repeat(Math.max(emptyBlocksCount, 0));
+  if (remainderIndex === 0 && fullBlocksCount === 0) {
+    bar += `${" ".repeat(WIDTH)}\n`.repeat(Math.max(emptyBlocksCount - 1, 0));
+    bar += GRADIENT[0].repeat(WIDTH);
+  } else {
+    bar += `${" ".repeat(WIDTH)}\n`.repeat(Math.max(emptyBlocksCount, 0));
 
-  if (remainderIndex > 0) {
-    bar += `${GRADIENT[remainderIndex]!.repeat(WIDTH)}\n`;
+    if (remainderIndex > 0) {
+      bar += `${GRADIENT[remainderIndex]!.repeat(WIDTH)}\n`;
+    }
+    bar += `${FULL_BLOCK.repeat(WIDTH)}\n`.repeat(fullBlocksCount);
   }
-  bar += `${FULL_BLOCK.repeat(WIDTH)}\n`.repeat(fullBlocksCount);
 
   return <span>{bar}</span>;
 };
