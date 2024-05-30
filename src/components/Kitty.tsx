@@ -52,8 +52,8 @@ export const Kitty = (props: {
 
     setWidth(`${width}px`);
     setHeight(`${height}px`);
-    setContext((ctx) => ({ ...(ctx ?? { active: false }), rows, cols }));
-  }, []);
+    setContext({ id, rows, cols });
+  }, [id]);
 
   useEffect(() => {
     if (!container.current) return;
@@ -71,7 +71,7 @@ export const Kitty = (props: {
     <div className={props.className} onMouseEnter={handleMouseEnter}>
       <div
         className={
-          "h-full w-full overflow-hidden rounded-lg border-2 border-borderInactive bg-background bg-opacity-80 px-[1px] text-lg text-color7 text-foreground shadow-window transition-colors duration-[500ms] ease-out"
+          "h-full w-full overflow-hidden rounded-lg border-2 border-borderInactive bg-background bg-opacity-80 px-[1px] text-lg text-[#cbc7d1] text-foreground shadow-window transition-colors duration-[500ms] ease-out"
         }
         style={{
           lineHeight: `${CHAR_HEIGHT}px`,

@@ -7,5 +7,5 @@ export const KittyContext = createContext<KittyContextProps | undefined>(
 export type KittyContextProps = {
   rows: number;
   cols: number;
-  active: boolean;
+  id: string;
 };
