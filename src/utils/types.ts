@@ -1,4 +1,4 @@
-import { KittyContextProps } from "~/context/KittyContext";
+import { type KittyContextProps } from "~/context/KittyContext";
 
 export type Prettify<T> = NonNullable<{ [K in keyof T]: T[K] }>;
 
@@ -7,9 +7,7 @@ export type InnerKittyProps<T extends (...args: any[]) => any> = Prettify<
   Parameters<T>[0] & KittyContextProps
 >;
 
-export type Manifest = {
-  projects: Array<{
-    name: string;
-    files: Array<string>;
-  }>;
+export type RootManifest = {
+  files: Array<string>;
+  projects: Array<string>;
 };
