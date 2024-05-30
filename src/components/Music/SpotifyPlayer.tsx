@@ -2,7 +2,8 @@ import { useState } from "react";
 import { formatMMSS } from "../../utils/time";
 import { CharArray } from "../../utils/string";
 import { CHAR_HEIGHT, CHAR_WIDTH } from "../Kitty";
-import { type InnerKittyProps, useKitty } from "../../context/KittyContext";
+import { type InnerKittyProps } from "../../context/KittyContext";
+import { useKitty } from "~/hooks/useKitty";
 
 export const SpotifyPlayer = (props: {
   title: string;

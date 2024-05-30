@@ -18,7 +18,7 @@ export const WaybarRAMWidget = (props: {
   useEffect(() => {
     const interval = setInterval(() => {
       const offset = randomMinMax(-props.variation, props.variation + 1);
-      setUsage(x => clamp(x + offset, props.min, props.max));
+      setUsage((x) => clamp(x + offset, props.min, props.max));
     }, props.frequency);
 
     return () => clearInterval(interval);

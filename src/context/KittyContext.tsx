@@ -1,10 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 export const KittyContext = createContext<KittyContextProps | undefined>(
   undefined,
 );
-
-export const useKitty = () => useContext(KittyContext);
 
 export type KittyContextProps = {
   rows: number;

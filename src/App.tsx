@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Kitty } from "./components/Kitty";
-import { AppProvider } from "./context/AppContext";
+import { AppProvider } from "./providers/AppProvider";
 import { Music } from "./components/Music";
 import { Nvim } from "./components/Nvim";
 

@@ -5,8 +5,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { type InnerKittyProps, useKitty } from "../../context/KittyContext";
+import { type InnerKittyProps } from "../../context/KittyContext";
 import { CHAR_WIDTH } from "../Kitty";
+import { useKitty } from "~/hooks/useKitty";
 
 export const Cava = (props: { audio: RefObject<HTMLAudioElement> }) => {
   const kitty = useKitty();

@@ -6,8 +6,9 @@ import {
   useCallback,
   useId,
 } from "react";
-import { KittyContext, type KittyContextProps } from "../context/KittyContext";
-import { useApp } from "../context/AppContext";
+import { type KittyContextProps } from "~/context/KittyContext";
+import { useApp } from "~/hooks/useApp";
+import { KittyProvider } from "~/providers/KittyProvider";
 
 export const CHAR_WIDTH = 12;
 export const CHAR_HEIGHT = 26;
@@ -51,7 +52,7 @@ export const Kitty = (props: {
 
     setWidth(`${width}px`);
     setHeight(`${height}px`);
-    setContext(ctx => ({ ...(ctx ?? { active: false }), rows, cols }));
+    setContext((ctx) => ({ ...(ctx ?? { active: false }), rows, cols }));
   }, []);
 
   useEffect(() => {
@@ -76,9 +77,9 @@ export const Kitty = (props: {
           lineHeight: `${CHAR_HEIGHT}px`,
           ...(activeKitty === id
             ? {
-                borderColor: "#cdd6f4",
-                animationDuration: "200ms",
-              }
+              borderColor: "#cdd6f4",
+              animationDuration: "200ms",
+            }
             : {}),
         }}
         ref={container}
@@ -87,9 +88,7 @@ export const Kitty = (props: {
           className="whitespace-pre"
           style={{ backdropFilter: "blur(2px)", width, height }}
         >
-          <KittyContext.Provider value={context}>
-            {props.children}
-          </KittyContext.Provider>
+          <KittyProvider value={context}>{props.children}</KittyProvider>
         </div>
       </div>
     </div>

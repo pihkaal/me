@@ -30,9 +30,9 @@ export const Music = () => {
     if (metadata) return;
 
     void fetch(song)
-      .then(r => r.blob())
-      .then(b => parseBlob(b))
-      .then(m => {
+      .then((r) => r.blob())
+      .then((b) => parseBlob(b))
+      .then((m) => {
         if (!audio.current) return;
 
         setMetadata(m);
