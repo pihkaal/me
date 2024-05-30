@@ -4,9 +4,59 @@ import { NvimEditor } from "./NvimEditor";
 import { NvimInput } from "./NvimInput";
 import { NvimStatusBar } from "./NvimStatusBar";
 import { NvimTree } from "./NvimTree";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const fetchData = async (
+  branch: string,
+  repo: string,
+  file: string,
+): Promise<string | null> => {
+  try {
+    const response = await axios.get<string>(
+      `https://raw.githubusercontent.com/pihkaal/${repo}/${branch}/${file}`,
+    );
+    return response.data;
+  } catch {
+    return null;
+  }
+};
 
 export const Nvim = (_props: {}) => {
   const kitty = useKitty();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [data, setData] = useState<string>();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const view = params.get("view");
+    if (!view) {
+      navigate("?view=README.md");
+      return;
+    }
+
+    const path = view.split("/");
+    if (path.length === 1) {
+      path.splice(0, 0, "pihkaal");
+    }
+    const repo = path[0]!;
+    const file = path[1]!;
+
+    void (async () => {
+      const data =
+        (await fetchData("main", repo, file)) ??
+        (await fetchData("dev", repo, file));
+      if (!data) {
+        navigate("?view=README.md");
+        return;
+      }
+
+      setData(data);
+    })();
+  }, [location, navigate]);
 
   return (
     <div
@@ -21,8 +71,8 @@ export const Nvim = (_props: {}) => {
           <div style={{ gridArea: "1 / 1 / 1 / 2" }}>
             <NvimTree {...kitty} />
           </div>
-          <div style={{ gridArea: "1 / 2 / 1 / 3" }}>
-            <NvimEditor />
+          <div style={{ gridArea: "1 / 2 / 1 / 3", overflow: "scroll" }}>
+            <NvimEditor data={data ?? ""} />
           </div>
           <div style={{ gridArea: "2 / 1 / 2 / 3" }}>
             <NvimStatusBar

@@ -3,6 +3,7 @@ import { CHAR_HEIGHT, CHAR_WIDTH } from "../Kitty";
 import { type ReactNode, useEffect, useState } from "react";
 import { type InnerKittyProps } from "~/utils/types";
 import { type Nvim } from ".";
+import { useNavigate } from "react-router-dom";
 
 type FileIcon = {
   char: string;
@@ -12,7 +13,7 @@ type FileIcon = {
 type File = {
   name: string;
 } & (
-  | { type: "file" }
+  | { type: "file"; directory?: File & { type: "directory" } }
   | { type: "directory"; files: Array<string>; folded: boolean }
 );
 
@@ -41,19 +42,20 @@ const sortFiles = (files: Array<File>) =>
 
 export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
   const { rootManifest, activeKitty } = useApp();
+  const navigate = useNavigate();
 
-  const [selected, setSelected] = useState(0);
   const [files, setFiles] = useState<Array<File>>(
     sortFiles([
       {
         type: "directory",
         name: "projects",
         files: rootManifest.projects,
-        folded: false,
+        folded: true,
       },
       ...rootManifest.files.map((name) => ({ type: "file" as const, name })),
     ]),
   );
+  const [selected, setSelected] = useState(files.length - 1);
 
   const tree: Array<ReactNode> = [];
   let y = 0;
@@ -87,7 +89,11 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
         for (let i = 0; i < fileOrDir.files.length; i++) {
           y++;
           if (y === selected)
-            selectedFile = { type: "file", name: fileOrDir.files[i] };
+            selectedFile = {
+              type: "file",
+              name: fileOrDir.files[i],
+              directory: fileOrDir,
+            };
 
           const icon = FILE_ICONS.UNKNOWN;
           const fy = y;
@@ -150,7 +156,12 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
           if (selectedFile.type === "directory") {
             selectedFile.folded = !selectedFile.folded;
           } else {
-            console.log(`navigate to ${selectedFile.name}`);
+            let filePath = "";
+            if (selectedFile.directory) {
+              filePath += `${selectedFile.directory.name}/`;
+            }
+
+            navigate(`?view=${filePath}${selectedFile.name}`);
           }
 
           setFiles([...files]);
