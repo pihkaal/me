@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { type InnerKittyProps } from "../../context/KittyContext";
+import { type InnerKittyProps } from "~/utils/types";
 import { CHAR_WIDTH } from "../Kitty";
 import { useKitty } from "~/hooks/useKitty";
 
