@@ -1,79 +1,108 @@
-import { useEffect } from "react";
-import { Bar, Frame, Group, Text, useTerminal } from "react-dom-curse";
-import { theme } from "~/utils/theme";
-
-const formatDurationMSS = (duration: number) => {
-  duration = Math.floor(duration);
-
-  const minutes = Math.floor(duration / 60);
-  const seconds = duration % 60;
-
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-};
+import { useState } from "react";
+import { formatMMSS } from "../../utils/time";
+import { CharArray } from "../../utils/string";
+import { CHAR_HEIGHT, CHAR_WIDTH } from "../Kitty";
+import { type InnerKittyProps, useKitty } from "../../context/KittyContext";
 
 export const SpotifyPlayer = (props: {
   title: string;
   artist: string;
   album: string;
-  played: number;
   duration: number;
+  played: number;
+  onTogglePause: (state: boolean) => void;
 }) => {
-  const { width } = useTerminal();
-
-  const time = `${formatDurationMSS(props.played)}/${formatDurationMSS(
-    props.duration,
-  )}`;
+  const kitty = useKitty();
 
   return (
-    <Group
-      x={0}
-      y={0}
-      width={width}
-      height={5}
-      style={{ foreground: theme.white }}
+    <div
+      className="grid select-none"
+      style={{
+        gridTemplateColumns: `${CHAR_WIDTH}px ${CHAR_WIDTH * 8}px 1fr ${CHAR_WIDTH}px`,
+        gridTemplateRows: `${CHAR_HEIGHT}px ${CHAR_HEIGHT * 3}px ${CHAR_HEIGHT}px`,
+      }}
     >
-      <Frame x={0} y={0} width={width} height={5} border="single">
-        <Text x={0} y={0} style={{ foreground: theme.cyan, bold: true }}>
+      {kitty && <InnerSpotifyPlayer {...props} {...kitty} />}
+    </div>
+  );
+};
+
+const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
+  const [paused, setPaused] = useState(false);
+
+  const fillSize = Math.round(
+    (props.played / props.duration) * (props.cols - 2),
+  );
+  const emptySize = props.cols - 2 - fillSize;
+
+  const timeString = `${formatMMSS(props.played)}/${formatMMSS(props.duration)}`;
+  const timeStringLeft = Math.round(
+    (props.cols - 2) / 2 - timeString.length / 2,
+  );
+
+  const fill = new CharArray(" ", fillSize)
+    .write(timeStringLeft, timeString)
+    .toString();
+  const empty = new CharArray(" ", emptySize)
+    .write(timeStringLeft - fillSize, timeString)
+    .toString();
+
+  const handleTogglePause = () => {
+    setPaused(!paused);
+    props.onTogglePause(!paused);
+  };
+
+  return (
+    <>
+      {/* title */}
+      <span
+        className="font-bold text-color5"
+        style={{ gridArea: "1 / 2 / 2 / 3" }}
+      >
+        Playback
+      </span>
+
+      {/* border right */}
+      <span style={{ gridArea: "1 / 4 / 2 / 5" }}>┐</span>
+      <span style={{ gridArea: "2 / 4 / 3 / 4" }}>
+        {"│\n".repeat(props.rows - 2)}
+      </span>
+      <span style={{ gridArea: "3 / 4 / 4 / 5" }}>┘</span>
+
+      {/* borer left */}
+      <span style={{ gridArea: "1 / 1 / 2 / 2" }}>┌</span>
+      <span style={{ gridArea: "2 / 1 / 3 / 1" }}>
+        {"│\n".repeat(props.rows - 2)}
+      </span>
+      <span style={{ gridArea: "3 / 1 / 4 / 2" }}>└</span>
+
+      {/* border top */}
+      <span className="overflow-hidden" style={{ gridArea: "1 / 3 / 2 / 4" }}>
+        {"─".repeat(props.cols - 2 - 8)}
+      </span>
+
+      {/* border bottom */}
+      <span className="overflow-hidden" style={{ gridArea: "3 / 2 / 4 / 4" }}>
+        {"─".repeat(props.cols - 2)}
+      </span>
+
+      {/* body */}
+      <div className="overflow-hidden" style={{ gridArea: "2 / 2 / 3 / 4" }}>
+        <span className="font-bold text-color6">
+          <span onClick={handleTogglePause}>
+            {paused ? "\udb81\udc0a " : "\udb80\udfe4 "}
+          </span>
           {props.title} · {props.artist}
-        </Text>
-        <Text x={0} y={1} style={{ foreground: theme.yellow }}>
-          {props.album}
-        </Text>
-
-        <Group x={0} y={2} width={width} height={1}>
-          <Bar
-            x={0}
-            y={0}
-            style={{
-              foreground: theme.green,
-              background: "#55576d",
-              bold: true,
-            }}
-            char=" "
-            size={width}
-            direction="right"
-          />
-          <Bar
-            x={0}
-            y={0}
-            style={{
-              foreground: "#55576d",
-              background: theme.green,
-              bold: true,
-            }}
-            char=" "
-            size={width * (props.played / props.duration)}
-            direction="right"
-          />
-          <Text x={Math.floor(width / 2 - time.length / 2 - 1)} y={0}>
-            {time}
-          </Text>
-        </Group>
-      </Frame>
-
-      <Text x={1} y={0} style={{ foreground: theme.magenta }}>
-        {"Playback".substring(0, Math.min(8, width - 2))}
-      </Text>
-    </Group>
+        </span>
+        <br />
+        <span className="text-color3">{props.album}</span>
+        <br />
+        <div className="relative font-bold">
+          <span className="bg-color2 text-color8">{fill}</span>
+          <span className="bg-color8 text-color2">{empty}</span>
+        </div>
+        <br />
+      </div>
+    </>
   );
 };

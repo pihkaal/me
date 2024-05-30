@@ -1,54 +1,22 @@
-/* eslint-disable react-refresh/only-export-components */
-import {
-  createContext,
-  useEffect,
-  useContext,
-  useState,
-  type ReactNode,
-} from "react";
-import axios from "axios";
-import { type Manifest } from "~/utils/types";
+import { type ReactNode, createContext, useContext, useState } from "react";
 
-const AppContext = createContext<Manifest | null>(null);
-
-export const AppContextProvider = (props: {
-  children: Array<ReactNode> | ReactNode;
-}) => {
-  const [manifest, setManifest] = useState<Manifest | null>({
-    projects: [
-      {
-        name: "tlock",
-        files: ["README.md"],
-      },
-      {
-        name: "pihkaal",
-        files: ["README.md", "pubkey.asc"],
-      },
-    ],
-  });
-
-  useEffect(() => {
-    return;
-    void axios
-      .get<Manifest>(
-        "https://raw.githubusercontent.com/pihkaal/pihkaal/main/manifest.json",
-      )
-      .then(x => {
-        setManifest(x.data);
-        console.log(x.data);
-      });
-  }, []);
-
-  return (
-    <AppContext.Provider value={manifest}>
-      {manifest && props.children}
-    </AppContext.Provider>
-  );
-};
+export const AppContext = createContext<
+  { activeKitty: string; setActiveKitty: (value: string) => void } | undefined
+>(undefined);
 
 export const useApp = () => {
-  const context = useContext(AppContext);
-  if (!context) throw new Error("useApp must be used inside the app lol");
+  const app = useContext(AppContext);
+  if (!app) throw new Error("`useApp` used outside AppContext");
 
-  return context;
+  return app;
+};
+
+export const AppProvider = (props: { children?: ReactNode }) => {
+  const [activeKitty, setActiveKitty] = useState(":r0:");
+
+  return (
+    <AppContext.Provider value={{ activeKitty, setActiveKitty }}>
+      {props.children}
+    </AppContext.Provider>
+  );
 };

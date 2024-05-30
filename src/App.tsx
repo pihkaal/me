@@ -1,38 +1,35 @@
-import { BrowserRouter } from "react-router-dom";
-import { Kitty } from "./components/Kitty";
-import { AppContextProvider } from "./context/AppContext";
-import { Waybar } from "./components/Waybar/Waybar";
 import { useState } from "react";
-import { Music } from "./components/Music/Music";
+import { Kitty } from "./components/Kitty";
+import { AppProvider } from "./context/AppContext";
+import { Music } from "./components/Music";
+// import { Nvim } from "./components/Nvim";
 
-function App() {
-  const [clicked, setClicked] = useState(false);
+export default function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <AppContextProvider>
-      <BrowserRouter>
-        {clicked ? (
-          <main
-            className={
-              "insets-0 fixed flex h-screen w-screen flex-col gap-3 bg-[url(/wallpaper.jpg)] bg-cover p-3 font-body leading-[26px]"
-            }
-          >
-            <Waybar />
+    <AppProvider>
+      <main className="h-screen w-screen overflow-hidden bg-[url(/wallpaper.jpg)] bg-cover">
+        {loggedIn ? (
+          <div className="flex h-full w-full flex-col">
+            <Kitty className="w-full flex-1 pb-1 pl-2 pr-2 pt-2">
+              {/* <Nvim /> */}
+            </Kitty>
 
-            <Kitty className="flex-1"></Kitty>
-
-            <div className="flex h-[142px] gap-3">
-              <Music />{" "}
-            </div>
-          </main>
+            <Music />
+          </div>
         ) : (
-          <main className="flex h-screen items-center justify-center">
-            <button onClick={() => setClicked(true)}>Login</button>
-          </main>
+          <div className="flex h-full items-center justify-center">
+            <button
+              className="rounded-md border border-black px-2 py-1 hover:border-2 hover:font-bold"
+              onClick={() => setLoggedIn(true)}
+            >
+              Log in
+            </button>
+          </div>
         )}
-      </BrowserRouter>
-    </AppContextProvider>
+      </main>
+    </AppProvider>
   );
 }
 
-export default App;

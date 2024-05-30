@@ -15,7 +15,6 @@
     "music-metadata-browser": "^2.5.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-dom-curse": "file:../react-dom-curse",
     "react-router-dom": "^6.21.3",
     "tailwind-merge": "^2.2.1",
     "vite-tsconfig-paths": "^4.3.1",
@@ -49,5 +48,5 @@
   "ct3aMetadata": {
     "initVersion": "7.25.1"
   },
-  "packageManager": "pnpm@8.14.1"
+  "packageManager": "pnpm@9.1.2"
 }
