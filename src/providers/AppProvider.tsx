@@ -7,7 +7,28 @@ export const AppProvider = (props: { children?: ReactNode }) => {
   const [activeKitty, setActiveKitty] = useState(":r0:");
   const [rootManifest, setRootManifest] = useState<RootManifest>({
     files: ["README.md", "pubkey.asc"],
-    projects: ["me", "tlock"],
+    projects: [
+      {
+        name: "me",
+        icon: "ts",
+      },
+      {
+        name: "tlock",
+        icon: "rs",
+      },
+    ],
+    links: [
+      {
+        name: "github",
+        url: "https://github.com/pihkaal",
+        icon: "github",
+      },
+      {
+        name: "instagram",
+        url: "https://instagram.com/pihkaal",
+        icon: "instagram",
+      },
+    ],
   });
 
   useEffect(() => {

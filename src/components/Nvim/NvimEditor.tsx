@@ -1,3 +1,3 @@
-export const NvimEditor = (props: { data: string }) => (
-  <div className="h-full">{props.data}</div>
+export const NvimEditor = (props: { source: string | undefined }) => (
+  <div className="h-full">{props.source}</div>
 );
