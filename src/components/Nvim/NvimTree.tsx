@@ -1,6 +1,6 @@
 import { useApp } from "~/hooks/useApp";
 import { CHAR_HEIGHT, CHAR_WIDTH } from "../Kitty";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState, useCallback } from "react";
 import { type InnerKittyProps } from "~/utils/types";
 import { type Nvim } from ".";
 import { useNavigate } from "react-router-dom";
@@ -57,6 +57,21 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
   );
   const [selected, setSelected] = useState(files.length - 1);
 
+  const handleOpen = (file: File) => {
+    if (file.type === "directory") {
+      file.folded = !file.folded;
+    } else {
+      let filePath = "";
+      if (file.directory) {
+        filePath += `${file.directory.name}/`;
+      }
+
+      navigate(`?view=${filePath}${file.name}`);
+    }
+
+    setFiles([...files]);
+  };
+
   const tree: Array<ReactNode> = [];
   let y = 0;
   let selectedFile: File;
@@ -70,10 +85,7 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
           className="text-[#a0b6ee]"
           style={{ background: y === selected ? "#504651" : "" }}
           onMouseDown={() => setSelected(dy)}
-          onDoubleClick={() => {
-            fileOrDir.folded = !fileOrDir.folded;
-            setFiles([...files]);
-          }}
+          onDoubleClick={() => handleOpen(fileOrDir)}
         >
           {fileOrDir.folded ? (
             <>
@@ -102,6 +114,13 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
               key={y}
               style={{ background: y === selected ? "#504651" : "" }}
               onMouseDown={() => setSelected(fy)}
+              onDoubleClick={() =>
+                handleOpen({
+                  type: "file",
+                  name: fileOrDir.files[i],
+                  directory: fileOrDir,
+                })
+              }
             >
               {"  "}
               <span className="text-[#5b515b]">
@@ -126,6 +145,7 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
           key={y}
           style={{ background: y === selected ? "#504651" : "" }}
           onMouseDown={() => setSelected(fy)}
+          onDoubleClick={() => handleOpen(fileOrDir)}
         >
           {"  "}
           <span style={{ color: icon.color }}>{`${icon.char}`}</span>
@@ -153,18 +173,7 @@ export const NvimTree = (props: InnerKittyProps<typeof Nvim>) => {
           break;
 
         case "Enter":
-          if (selectedFile.type === "directory") {
-            selectedFile.folded = !selectedFile.folded;
-          } else {
-            let filePath = "";
-            if (selectedFile.directory) {
-              filePath += `${selectedFile.directory.name}/`;
-            }
-
-            navigate(`?view=${filePath}${selectedFile.name}`);
-          }
-
-          setFiles([...files]);
+          handleOpen(selectedFile);
           break;
       }
     };
