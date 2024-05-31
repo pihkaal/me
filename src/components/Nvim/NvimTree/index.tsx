@@ -159,20 +159,3 @@ export const NvimTree = (
     </div>
   );
 };
-
-type FileIcon = {
-  char: string;
-  color: string;
-};
-
-const FILE_ICONS: Record<string, FileIcon> = {
-  md: {
-    char: " ",
-    color: "#89bafa",
-  },
-  asc: {
-    char: "󰷖 ",
-    color: "#f9e2af",
-  },
-  UNKNOWN: { char: "󰈚 ", color: "#f599ae" },
-};

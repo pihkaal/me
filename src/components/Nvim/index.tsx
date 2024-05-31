@@ -10,15 +10,21 @@ import { File } from "~/utils/types";
 export const Nvim = (_props: {}) => {
   const kitty = useKitty();
 
-  const [activeFile, setActiveFile] = useState<string>();
+  const [activeFile, setActiveFile] = useState<{
+    name: string;
+    url: string;
+    icon?: string;
+  }>();
 
   const handleOpenFile = (file: File) => {
     if (file.type === "link") {
       window.open(file.url, "_blank")?.focus();
     } else {
-      setActiveFile(
-        `https://raw.githubusercontent.com/pihkaal/${file.repo}/main/${file.fileName}`,
-      );
+      setActiveFile({
+        name: file.repo === "pihkaal" ? file.fileName : file.repo,
+        icon: file.icon,
+        url: `https://raw.githubusercontent.com/pihkaal/${file.repo}/main/${file.fileName}`,
+      });
     }
   };
 
@@ -36,13 +42,14 @@ export const Nvim = (_props: {}) => {
             <NvimTree {...kitty} onOpen={handleOpenFile} />
           </div>
           <div style={{ gridArea: "1 / 2 / 1 / 3", overflow: "scroll" }}>
-            <NvimEditor source={activeFile} />
+            <NvimEditor source={activeFile?.url} />
           </div>
           <div style={{ gridArea: "2 / 1 / 2 / 3" }}>
             <NvimStatusBar
-              label="INSERT"
+              label=" NORMAL"
               labelColor="#7ea7ca"
-              fileName="README.md"
+              fileIcon={activeFile?.icon}
+              fileName={activeFile?.name ?? `NvimTree_1`}
             />
           </div>
           <div style={{ gridArea: "3 / 1 / 3 / 3" }}>

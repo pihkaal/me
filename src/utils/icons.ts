@@ -1,4 +1,23 @@
-import { Icon } from "./types";
+import { File, Icon } from "./types";
+
+export const getIcon = (file: File | string | undefined): Icon => {
+  if (file === undefined) return ICONS["UNKNOWN"];
+
+  let iconName;
+  if (typeof file === "string") {
+    const parts = file.split(".");
+    iconName = parts[parts.length - 1];
+  } else {
+    iconName = file.icon;
+    if (!iconName) {
+      const parts = file.name.split(".");
+      iconName = parts[parts.length - 1];
+    }
+  }
+
+  if (!ICONS[iconName]) iconName = "UNKNOWN";
+  return ICONS[iconName];
+};
 
 export const ICONS: Record<string, Icon> = {
   md: {
