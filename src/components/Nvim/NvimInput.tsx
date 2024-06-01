@@ -1,1 +1,1 @@
-export const NvimInput = () => <div>input</div>;
+export const NvimInput = () => <div>Welcome to my website!!</div>;
