@@ -85,7 +85,7 @@ export const Kitty = (props: {
         ref={container}
       >
         <div
-          className="whitespace-pre"
+          className="whitespace-pre-wrap"
           style={{ backdropFilter: "blur(2px)", width, height }}
         >
           <KittyProvider value={context}>{props.children}</KittyProvider>

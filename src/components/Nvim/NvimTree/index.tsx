@@ -10,7 +10,6 @@ import {
 import { type Nvim } from "..";
 import { NvimTreeDirectory } from "./NvimTreeDirectory";
 import { NvimTreeFile } from "./NvimTreeFile";
-import { promiseHooks } from "v8";
 
 const sortFiles = (files: Array<File | Directory>) =>
   files

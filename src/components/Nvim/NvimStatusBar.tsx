@@ -6,7 +6,7 @@ export const NvimStatusBar = (props: {
   fileIcon?: string;
   fileName: string;
 }) => (
-  <div className="bg-[#29293c]">
+  <div className="select-none bg-[#29293c]">
     <span className="text-[#272332]" style={{ background: props.labelColor }}>
       {` ${props.label} `}
     </span>

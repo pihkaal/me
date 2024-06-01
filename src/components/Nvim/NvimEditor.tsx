@@ -14,5 +14,5 @@ export const NvimEditor = (props: { source: string | undefined }) => {
     });
   }, [props.source]);
 
-  return <div className="h-full">{loading ? "Loading..." : data}</div>;
+  return <p>{loading ? "Loading..." : data}</p>;
 };
