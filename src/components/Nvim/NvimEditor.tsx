@@ -1,12 +1,11 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { CHAR_WIDTH } from "../Kitty";
+import { useEffect, useState } from "react";
 
 export const NvimEditor = (props: { source: string | undefined }) => {
   const [data, setData] = useState<string>();
   const [loading, setLoading] = useState(false);
 
-  const textRef = useRef<HTMLParagraphElement>(null);
+  const [selectedLine, setSelectedLine] = useState(0);
 
   useEffect(() => {
     if (!props.source) return;
@@ -18,12 +17,19 @@ export const NvimEditor = (props: { source: string | undefined }) => {
     });
   }, [props.source]);
 
-  const rows = data?.split("\n") ?? [];
+  let rows = data?.split("\n") ?? [];
+  // trim end empty lines
   for (let i = rows.length - 1; i >= 0; i--) {
     if (rows[i].trim().length === 0) {
-      delete rows[i];
+      rows = rows.slice(0, rows.length - 1);
     } else {
       break;
+    }
+  }
+  // add spaces in empty lines
+  for (let i = 0; i < rows.length; i++) {
+    if (rows[i].trim().length === 0) {
+      rows[i] = " ";
     }
   }
 
@@ -33,10 +39,19 @@ export const NvimEditor = (props: { source: string | undefined }) => {
     <table>
       <tbody>
         {rows.map((row, i) => (
-          <tr key={i}>
+          <tr
+            key={i}
+            onMouseDown={() => setSelectedLine(i)}
+            onMouseMove={(e) => {
+              if (e.buttons === 1) setSelectedLine(i);
+            }}
+          >
             <td
-              className={`select-none pl-[2ch] pr-[1ch] text-right text-[#6b616d]`}
-              style={{ width: `${3 + rows.length.toString().length}ch` }}
+              className={`flex select-none flex-col items-start pl-[2ch] pr-[1ch] text-right`}
+              style={{
+                width: `${3 + rows.length.toString().length}ch`,
+                color: selectedLine === i ? "inherit" : "#6b616d",
+              }}
             >
               {i + 1}
             </td>

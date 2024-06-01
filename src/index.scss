@@ -18,6 +18,10 @@ body {
   font-family: "JetBrainsMono";
 }
 
+*::selection {
+  background-color: #584e5a;
+}
+
 @font-face {
   font-family: "JetBrainsMono";
   src:
