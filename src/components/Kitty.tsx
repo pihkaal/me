@@ -71,7 +71,7 @@ export const Kitty = (props: {
     <div className={props.className} onMouseEnter={handleMouseEnter}>
       <div
         className={
-          "h-full w-full overflow-hidden rounded-lg border-2 border-borderInactive bg-background bg-opacity-80 px-[1px] text-lg text-[#cbc7d1] text-foreground shadow-window transition-colors duration-[500ms] ease-out"
+          "h-full w-full overflow-hidden rounded-lg border-2 border-borderInactive bg-[#262234] bg-background bg-opacity-90 px-[1px] text-lg text-[#cbc7d1] text-foreground shadow-window transition-colors duration-[500ms] ease-out"
         }
         style={{
           lineHeight: `${CHAR_HEIGHT}px`,
@@ -86,7 +86,7 @@ export const Kitty = (props: {
       >
         <div
           className="whitespace-pre-wrap"
-          style={{ backdropFilter: "blur(2px)", width, height }}
+          style={{ backdropFilter: "blur(2.5px)", width, height }}
         >
           <KittyProvider value={context}>{props.children}</KittyProvider>
         </div>
