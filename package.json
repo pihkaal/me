@@ -22,6 +22,7 @@
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+    "@octokit/rest": "^21.0.0",
     "@types/eslint": "^8.44.7",
     "@types/node": "^18.17.0",
     "@types/react": "^18.2.37",
@@ -31,6 +32,7 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.14",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.4",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -46,6 +48,5 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.25.1"
-  },
-  "packageManager": "pnpm@9.1.2"
+  }
 }

@@ -4,9 +4,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import rollupNodePolyfillsPlugin from "rollup-plugin-polyfill-node";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
+import { manifest } from "./build/manifestPlugin";
 
 const config = defineConfig({
-  plugins: [tsconfigPaths(), react(), rollupNodePolyfillsPlugin()],
+  plugins: [manifest(), tsconfigPaths(), react(), rollupNodePolyfillsPlugin()],
   resolve: {
     alias: {
       events: "rollup-plugin-node-polyfills/polyfills/events",

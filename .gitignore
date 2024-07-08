@@ -4,7 +4,7 @@
 .pnp.js
 
 # Production
-/build
+/dist
 
 # Misc
 .DS_Store
@@ -29,3 +29,5 @@ yarn-error.log*
 # Project
 .notes
 
+# Generated
+/src/manifest.ts
