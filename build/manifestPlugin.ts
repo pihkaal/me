@@ -65,9 +65,11 @@ export const manifest = (): Plugin => ({
     }
 
     const code = `
-      const projects = ${JSON.stringify(projects, null, 2)};
+      const projects = ${JSON.stringify(projects, null, 2)} as const;
 
-      const projectsMap = Object.fromEntries(projects.map(project => [project.name, project]));
+      export type Project = typeof projects[number];
+
+      const projectsMap = Object.fromEntries(projects.map(project => [project.name, project])) as const;
 
       export const manifest = {
         projects,
