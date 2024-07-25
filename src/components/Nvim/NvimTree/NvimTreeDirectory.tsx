@@ -1,11 +1,11 @@
-import { Directory } from "~/utils/types";
+import { type Folder } from "~/utils/tree";
 
 export const NvimTreeDirectory = (props: {
-  directory: Directory;
+  directory: Folder;
   y: number;
   selected: boolean;
   onSelect: (y: number) => void;
-  onOpen: (directory: Directory) => void;
+  onOpen: (directory: Folder) => void;
 }) => (
   <li
     className="text-[#a0b6ee]"

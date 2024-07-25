@@ -116,7 +116,6 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
     const analyser = audioContext.createAnalyser();
     analyser.fftSize = 256;
 
-    console.log("ok");
     void audioElement.play().then(() => void audioContext.resume());
 
     if (!sourceRef.current) {
@@ -132,7 +131,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [props.cols, props.audio]);
+  }, [props.cols, props.audio, calculateBarHeights]);
 
   return barHeights.map((value, i) => (
     <FrequencyBar key={i} value={value} max={255 / 2} height={props.rows} />

@@ -1,41 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export const NvimEditor = (props: { source: string | undefined }) => {
-  const [cache, setCache] = useState(new Map<string, string>());
-  const [data, setData] = useState<string>();
-  const [loading, setLoading] = useState(false);
-
+export const NvimEditor = (props: { content: string | undefined }) => {
   const [selectedLine, setSelectedLine] = useState(0);
 
-  useEffect(() => {
-    if (!props.source) return;
-
-    const cached = cache.get(props.source);
-    if (cached) {
-      console.log("cache hit");
-      setData(cached);
-      return;
-    }
-
-    setLoading(true);
-    axios
-      .get<string>(props.source)
-      .then(({ data }) => {
-        setData(data);
-        setLoading(false);
-
-        setCache((cache) => {
-          cache.set(props.source!, data);
-          return cache;
-        });
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, [props.source]);
-
-  let rows = data?.split("\n") ?? [];
+  let rows = props.content?.split("\n") ?? [];
   // trim end empty lines
   for (let i = rows.length - 1; i >= 0; i--) {
     if (rows[i].trim().length === 0) {
@@ -51,9 +19,7 @@ export const NvimEditor = (props: { source: string | undefined }) => {
     }
   }
 
-  return loading ? (
-    <p>Loading...</p>
-  ) : (
+  return (
     <table>
       <tbody>
         {rows.map((row, i) => (

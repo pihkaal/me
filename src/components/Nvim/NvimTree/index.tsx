@@ -1,65 +1,44 @@
 import { useApp } from "~/hooks/useApp";
 import { CHAR_HEIGHT, CHAR_WIDTH } from "../../Kitty";
 import { type ReactNode, useEffect, useState } from "react";
-import {
-  type File,
-  type InnerKittyProps,
-  type RootManifest,
-  type Directory,
-} from "~/utils/types";
+import { type InnerKittyProps } from "~/utils/types";
 import { type Nvim } from "..";
 import { NvimTreeDirectory } from "./NvimTreeDirectory";
-import { NvimTreeFile } from "./NvimTreeFile";
+import { NvimTreeChild } from "./NvimTreeChild";
+import { assets } from "~/assets";
+import { getIcon } from "~/utils/icons";
+import {
+  file,
+  folder,
+  project,
+  sortFiles,
+  link,
+  type Child,
+} from "~/utils/tree";
 
-const sortFiles = (files: Array<File | Directory>) =>
-  files
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .sort((a, b) =>
-      a.type === "directory" && b.type !== "directory"
-        ? -1
-        : a.type !== "directory" && b.type === "directory"
-          ? 1
-          : 0,
-    );
-
-const manifestToTree = (manifest: RootManifest) =>
+const buildTree = () =>
   sortFiles([
-    {
-      type: "directory",
-      name: "links",
-      opened: false,
-      files: manifest.links.map((link) => ({
-        type: "link" as const,
-        ...link,
-      })),
-    },
-    {
-      type: "directory",
-      name: "projects",
-      opened: false,
-      files: manifest.projects.map((project) => ({
-        type: "file" as const,
-        repo: project.name,
-        fileName: "README.md",
-        ...project,
-      })),
-    },
-    ...manifest.files.map((file) => ({
-      type: "file" as const,
-      name: file,
-      repo: "pihkaal",
-      fileName: file,
-    })),
+    folder(
+      "links",
+      assets.links.map((l) => link(l.name, l.url, l.icon)),
+    ),
+    folder(
+      "projects",
+      assets.projects.map((p) =>
+        project(p.name, p.content, p.url, p.language, p.private),
+      ),
+    ),
+    file("README.md", "hey", getIcon("README.md")),
   ]);
 
 export const NvimTree = (
   props: InnerKittyProps<typeof Nvim> & {
-    onOpen: (file: File) => void;
+    onOpen: (file: Child) => void;
   },
 ) => {
-  const { rootManifest, activeKitty } = useApp();
+  const { activeKitty } = useApp();
 
-  const [files, setFiles] = useState(manifestToTree(rootManifest));
+  const [files, setFiles] = useState(buildTree());
   const [selectedY, setSelectedY] = useState(0);
 
   const tree: Array<ReactNode> = [];
@@ -67,7 +46,7 @@ export const NvimTree = (
   let selectedFile = files[0];
   for (const file of files) {
     if (selectedY === y) selectedFile = file;
-    if (file.type === "directory") {
+    if (file.type === "folder") {
       tree.push(
         <NvimTreeDirectory
           key={y}
@@ -83,15 +62,15 @@ export const NvimTree = (
       );
 
       if (file.opened) {
-        file.files.forEach((childFile, i) => {
+        file.children.forEach((child, i) => {
           y++;
-          if (selectedY === y) selectedFile = childFile;
+          if (selectedY === y) selectedFile = child;
           tree.push(
-            <NvimTreeFile
+            <NvimTreeChild
               key={y}
-              file={childFile}
+              child={child}
               y={y}
-              inDirectory={i === file.files.length - 1 ? "last" : true}
+              inDirectory={i === file.children.length - 1 ? "last" : true}
               selected={selectedY === y}
               onSelect={setSelectedY}
               onOpen={props.onOpen}
@@ -101,9 +80,9 @@ export const NvimTree = (
       }
     } else {
       tree.push(
-        <NvimTreeFile
+        <NvimTreeChild
           key={y}
-          file={file}
+          child={file}
           y={y}
           inDirectory={false}
           selected={selectedY === y}
@@ -129,7 +108,7 @@ export const NvimTree = (
           break;
 
         case "Enter":
-          if (selectedFile.type === "directory") {
+          if (selectedFile.type === "folder") {
             selectedFile.opened = !selectedFile.opened;
             setFiles([...files]);
           } else {

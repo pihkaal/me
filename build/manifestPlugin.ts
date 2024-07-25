@@ -4,6 +4,24 @@ import { spawnSync } from "child_process";
 import { Octokit } from "@octokit/rest";
 import { env } from "./env";
 
+type Manifest = {
+  files: string[];
+  projects: string[];
+  links: {
+    name: string;
+    url: string;
+    icon: string;
+  };
+};
+
+type Project = {
+  name: string;
+  content: string;
+  language: string | null;
+  url: string;
+  private: boolean;
+};
+
 export const manifest = (): Plugin => ({
   name: "generate-pages-plugin",
   buildStart: async () => {
@@ -15,12 +33,12 @@ export const manifest = (): Plugin => ({
     });
     try {
       const storedUpdatedAt = (
-        await readFile("./node_modules/.cache/manifest")
+        await readFile("./node_modules/.cache/assets")
       ).toString();
       if (storedUpdatedAt === manifestRepo.updated_at) return;
     } catch {}
 
-    await writeFile("./node_modules/.cache/manifest", manifestRepo.updated_at);
+    await writeFile("./node_modules/.cache/assets", manifestRepo.updated_at);
 
     const getRepoFileContent = async (repo: string, path: string) => {
       const { data: file } = await octokit.repos.getContent({
@@ -36,18 +54,9 @@ export const manifest = (): Plugin => ({
 
     const manifest = JSON.parse(
       await getRepoFileContent(env.GITHUB_USERNAME, "manifest.json"),
-    ) as {
-      files: string[];
-      projects: string[];
-    };
+    ) as Manifest;
 
-    const projects: Array<{
-      name: string;
-      content: string;
-      language: string | null;
-      url: string;
-      private: boolean;
-    }> = [];
+    const projects: Array<Project> = [];
     for (const project of manifest.projects) {
       const { data: repo } = await octokit.repos.get({
         owner: env.GITHUB_USERNAME,
@@ -67,18 +76,16 @@ export const manifest = (): Plugin => ({
     const code = `
       const projects = ${JSON.stringify(projects, null, 2)} as const;
 
-      export type Project = typeof projects[number];
+      const links = ${JSON.stringify(manifest.links, null, 2)} as const;
 
-      const projectsMap = Object.fromEntries(projects.map(project => [project.name, project])) as const;
-
-      export const manifest = {
+      export const assets = {
         projects,
-        projectsMap
+        links
       };
     `;
 
-    await writeFile("./src/manifest.ts", code);
+    await writeFile("./src/assets.ts", code);
 
-    spawnSync("prettier", ["--write", "./src/manifest.ts"]);
+    spawnSync("prettier", ["--write", "./src/assets.ts"]);
   },
 });

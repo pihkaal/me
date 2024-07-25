@@ -1,48 +1,48 @@
-import { File, Icon } from "./types";
+import { type Child, type Icon } from "./tree";
 
-export const getIcon = (file: File | string | undefined): Icon => {
-  if (file === undefined) return ICONS["UNKNOWN"];
+export const getIcon = (file: Child | string | undefined): Icon => {
+  if (!file) return DEFAULT_ICON;
 
-  let iconName;
   if (typeof file === "string") {
     const parts = file.split(".");
-    iconName = parts[parts.length - 1];
-  } else {
-    iconName = file.icon;
-    if (!iconName) {
-      const parts = file.name.split(".");
-      iconName = parts[parts.length - 1];
-    }
+    const iconName = parts[parts.length - 1];
+
+    return ICONS[EXT_TO_LANGUAGE[iconName]] ?? DEFAULT_ICON;
   }
 
-  if (!ICONS[iconName]) iconName = "UNKNOWN";
-  return ICONS[iconName];
+  return file.icon ?? DEFAULT_ICON;
+};
+
+export const EXT_TO_LANGUAGE: Record<string, string> = {
+  asc: "Key",
+  md: "Markdown",
 };
 
 export const ICONS: Record<string, Icon> = {
-  md: {
+  Markdown: {
     char: " ",
     color: "#89bafa",
   },
-  asc: {
+  Key: {
     char: "󰷖 ",
     color: "#f9e2af",
   },
-  ts: {
+  TypeScript: {
     char: " ",
     color: "#4d86a2",
   },
-  rs: {
+  Rust: {
     char: " ",
     color: "#be8f78",
   },
-  instagram: {
+  Instagram: {
     char: " ",
     color: "#e1306c",
   },
-  github: {
+  Github: {
     char: "󰊤 ",
     color: "#ffffff",
   },
-  UNKNOWN: { char: "󰈚 ", color: "#f599ae" },
 };
+
+export const DEFAULT_ICON = { char: "󰈚 ", color: "#f599ae" };
