@@ -131,7 +131,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [props.cols, props.audio, calculateBarHeights]);
+  }, [props.cols, props.audio]);
 
   return barHeights.map((value, i) => (
     <FrequencyBar key={i} value={value} max={255 / 2} height={props.rows} />
