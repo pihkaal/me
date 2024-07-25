@@ -5,6 +5,7 @@ import {
   useState,
   useCallback,
   useId,
+  type HTMLAttributes,
 } from "react";
 import { type KittyContextProps } from "~/context/KittyContext";
 import { useApp } from "~/hooks/useApp";
@@ -45,6 +46,7 @@ export const Kitty = (props: {
     const cols = Math.round(
       (container.current.clientWidth - PADDING_RIGHT) / CHAR_WIDTH,
     );
+
     const rows = Math.round(container.current.clientHeight / CHAR_HEIGHT);
 
     const width = cols * CHAR_WIDTH;
@@ -67,6 +69,10 @@ export const Kitty = (props: {
     };
   }, [snapToCharacter]);
 
+  const style: HTMLAttributes<HTMLDivElement>["style"] = props.rows
+    ? { height }
+    : { maxHeight: height, height: "100%" };
+
   return (
     <div className={props.className} onMouseEnter={handleMouseEnter}>
       <div
@@ -86,7 +92,7 @@ export const Kitty = (props: {
       >
         <div
           className="whitespace-pre-wrap"
-          style={{ backdropFilter: "blur(2.5px)", width, height }}
+          style={{ backdropFilter: "blur(2.5px)", width, ...style }}
         >
           <KittyProvider value={context}>{props.children}</KittyProvider>
         </div>
