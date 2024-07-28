@@ -25,7 +25,7 @@ export const NvimTreeChild = (props: {
       )}
       <span style={{ color: icon.color }}>{`${icon.char}`}</span>
       {props.child.name === "README.md" ? (
-        <span className="font-bold text-[#d8c5a1]">README.md</span>
+        <span className="font-extrabold text-[#d8c5a1]">README.md</span>
       ) : (
         <span>{props.child.name}</span>
       )}

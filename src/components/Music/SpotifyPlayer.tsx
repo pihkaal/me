@@ -63,7 +63,7 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
     <>
       {/* title */}
       <span
-        className="font-bold text-color5"
+        className="font-extrabold text-color5"
         style={{ gridArea: "1 / 2 / 2 / 3" }}
       >
         Playback
@@ -95,7 +95,7 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
 
       {/* body */}
       <div className="overflow-hidden" style={{ gridArea: "2 / 2 / 3 / 4" }}>
-        <span className="font-bold text-color6">
+        <span className="font-extrabold text-color6">
           <span onClick={handleTogglePause}>
             {paused ? "\udb81\udc0a " : "\udb80\udfe4 "}
           </span>
@@ -104,7 +104,7 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
         <br />
         <span className="text-color3">{props.album}</span>
         <br />
-        <div className="relative font-bold">
+        <div className="relative font-extrabold">
           <span className="bg-color2 text-color8">{fill}</span>
           <span className="bg-color8 text-color2">{empty}</span>
         </div>
