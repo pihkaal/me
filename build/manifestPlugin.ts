@@ -1,8 +1,9 @@
 import { Plugin } from "vite";
 import { readFile, writeFile } from "fs/promises";
 import { spawnSync } from "child_process";
-import { Octokit } from "@octokit/rest";
+import { Octokit, RestEndpointMethodTypes } from "@octokit/rest";
 import { env } from "./env";
+import { existsSync } from "fs";
 
 type Manifest = {
   files: string[];
@@ -26,11 +27,23 @@ export const manifest = (): Plugin => ({
   name: "generate-pages-plugin",
   buildStart: async () => {
     const octokit = new Octokit({ auth: env.GITHUB_PAT });
+    let manifestRepo: RestEndpointMethodTypes["repos"]["get"]["response"]["data"];
 
-    const { data: manifestRepo } = await octokit.repos.get({
-      owner: env.GITHUB_USERNAME,
-      repo: env.GITHUB_USERNAME,
-    });
+    try {
+      const { data } = await octokit.repos.get({
+        owner: env.GITHUB_USERNAME,
+        repo: env.GITHUB_USERNAME,
+      });
+      manifestRepo = data;
+    } catch {
+      if (existsSync("./node_modules/.cache/assets")) {
+        console.warn("WARNING: Can't update assets, using cached ones");
+        return;
+      } else {
+        throw new Error("Can't update assets, nothing cached");
+      }
+    }
+
     try {
       const storedUpdatedAt = (
         await readFile("./node_modules/.cache/assets")
