@@ -1,9 +1,11 @@
 import { createContext } from "react";
+import { type Prettify, type State } from "~/utils/types";
 
 export const AppContext = createContext<
-  | {
-      activeKitty: string;
-      setActiveKitty: (value: string) => void;
-    }
+  | Prettify<
+      State<"activeKitty", string> &
+        State<"brightness", number> &
+        State<"volume", number>
+    >
   | undefined
 >(undefined);

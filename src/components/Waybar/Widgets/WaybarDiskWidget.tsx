@@ -12,5 +12,5 @@ export const WaybarDiskWidget = (props: {
     props.current + randomMinMax(-props.variation, props.variation + 1);
   const usage = Math.round((value / props.capacity) * 100);
 
-  return <WaybarWidget>󰋊 {usage}%</WaybarWidget>;
+  return <WaybarWidget className="pl-[0.625rem] pr-3">󰋊 {usage}%</WaybarWidget>;
 };

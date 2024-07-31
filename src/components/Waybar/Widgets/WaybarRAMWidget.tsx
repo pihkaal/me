@@ -26,5 +26,5 @@ export const WaybarRAMWidget = (props: {
 
   // TODO: tooltip
   // Memory - (capacity * usage).1f GB used
-  return <WaybarWidget> {usage}%</WaybarWidget>;
+  return <WaybarWidget className="px-[0.625rem]"> {usage}%</WaybarWidget>;
 };

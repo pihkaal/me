@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { WaybarWidget } from "../WaybarWidget";
 
 // 1 is really active, but often changes, 19-30%
@@ -11,10 +11,6 @@ export const WaybarCPUWidget = (props: {
   frequency: number;
 }) => {
   const [usage, setUsage] = useState(new Array<number>(props.cores).fill(0));
-  const totalUsage = useMemo(
-    () => Math.round(usage.reduce((acc, v) => acc + v, 0) / usage.length),
-    [usage],
-  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,7 +19,13 @@ export const WaybarCPUWidget = (props: {
     }, props.frequency);
 
     return () => clearInterval(interval);
-  }, [usage]);
+  }, [usage, props.frequency]);
 
-  return <WaybarWidget> {totalUsage}%</WaybarWidget>;
+  const totalUsage = Math.round(
+    usage.reduce((acc, v) => acc + v, 0) / usage.length,
+  );
+
+  return (
+    <WaybarWidget className="pl-3 pr-[0.625rem]"> {totalUsage}%</WaybarWidget>
+  );
 };

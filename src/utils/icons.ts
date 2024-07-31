@@ -1,5 +1,8 @@
 import { type Child, type Icon } from "./tree";
 
+export const lerpIcon = (icons: Array<string>, value: number, max: number) =>
+  icons[Math.floor((value / max) * icons.length)] ?? icons[icons.length - 1];
+
 export const getIcon = (file: Child | string | undefined): Icon => {
   if (!file) return DEFAULT_ICON;
 
