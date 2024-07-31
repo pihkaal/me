@@ -40,28 +40,28 @@ importers:
         specifier: ^21.0.0
         version: 21.0.0
       '@types/eslint':
-        specifier: ^8.44.7
+        specifier: ^8.56.1
         version: 8.56.1
       '@types/node':
-        specifier: ^18.17.0
+        specifier: ^18.19.6
         version: 18.19.6
       '@types/react':
-        specifier: ^18.2.37
+        specifier: ^18.2.47
         version: 18.2.47
       '@types/react-dom':
-        specifier: ^18.2.15
+        specifier: ^18.2.18
         version: 18.2.18
       '@typescript-eslint/eslint-plugin':
-        specifier: ^6.11.0
+        specifier: ^6.18.1
         version: 6.18.1(@typescript-eslint/parser@6.18.1(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/parser':
-        specifier: ^6.11.0
+        specifier: ^6.18.1
         version: 6.18.1(eslint@8.56.0)(typescript@5.3.3)
       '@vitejs/plugin-react-swc':
         specifier: ^3.5.0
         version: 3.5.0(vite@5.0.12(@types/node@18.19.6)(sass@1.70.0))
       autoprefixer:
-        specifier: ^10.4.14
+        specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.33)
       clsx:
         specifier: ^2.1.0
@@ -70,7 +70,7 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       eslint:
-        specifier: ^8.54.0
+        specifier: ^8.56.0
         version: 8.56.0
       eslint-config-next:
         specifier: ^14.0.4
@@ -82,10 +82,10 @@ importers:
         specifier: ^0.4.5
         version: 0.4.5(eslint@8.56.0)
       postcss:
-        specifier: ^8.4.31
+        specifier: ^8.4.33
         version: 8.4.33
       prettier:
-        specifier: ^3.1.0
+        specifier: ^3.1.1
         version: 3.1.1
       prettier-plugin-tailwindcss:
         specifier: ^0.5.11
@@ -97,10 +97,10 @@ importers:
         specifier: ^1.70.0
         version: 1.70.0
       tailwindcss:
-        specifier: ^3.3.5
+        specifier: ^3.4.1
         version: 3.4.1
       typescript:
-        specifier: ^5.1.6
+        specifier: ^5.3.3
         version: 5.3.3
       vite:
         specifier: ^5.0.12
@@ -801,8 +801,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001576:
-    resolution: {integrity: sha512-ff5BdakGe2P3SQsMsiqmt1Lc8221NR1VzHj5jXN5vBny9A6fpze94HiVV/n7XRosOlsShJcvMv5mdnpjOGCEgg==}
+  caniuse-lite@1.0.30001643:
+    resolution: {integrity: sha512-ERgWGNleEilSrHM6iUz/zJNSQTP8Mr21wDWpdgvRwcTXGAq6jMtOUPP4dqFPTdKqZ2wKTdtB+uucZ3MRpAUSmg==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -2700,7 +2700,7 @@ snapshots:
   autoprefixer@10.4.16(postcss@8.4.33):
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001576
+      caniuse-lite: 1.0.30001643
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -2746,7 +2746,7 @@ snapshots:
 
   browserslist@4.22.2:
     dependencies:
-      caniuse-lite: 1.0.30001576
+      caniuse-lite: 1.0.30001643
       electron-to-chromium: 1.4.627
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
@@ -2766,7 +2766,7 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001576: {}
+  caniuse-lite@1.0.30001643: {}
 
   chalk@4.1.2:
     dependencies:
