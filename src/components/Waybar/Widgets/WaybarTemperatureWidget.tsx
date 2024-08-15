@@ -22,7 +22,10 @@ export const WaybarTemperatureWidget = (props: {
   });
 
   return (
-    <WaybarWidget className="pl-3 pr-[0.625rem]">
+    <WaybarWidget
+      className="pl-3 pr-[0.625rem]"
+      tooltip="All good until I start playing btd6"
+    >
        {temperature}°C
     </WaybarWidget>
   );

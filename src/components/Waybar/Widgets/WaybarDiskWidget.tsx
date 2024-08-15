@@ -12,5 +12,14 @@ export const WaybarDiskWidget = (props: {
     props.current + randomMinMax(-props.variation, props.variation + 1);
   const usage = Math.round((value / props.capacity) * 100);
 
-  return <WaybarWidget className="pl-[0.625rem] pr-3">󰋊 {usage}%</WaybarWidget>;
+  return (
+    <WaybarWidget
+      className="pl-[0.625rem] pr-3"
+      tooltip={`SSD - ${value.toFixed(1)}GB used out of ${
+        props.capacity
+      }GiB on / (${usage}%)`}
+    >
+      󰋊 {usage}%
+    </WaybarWidget>
+  );
 };

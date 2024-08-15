@@ -26,7 +26,13 @@ export const Waybar = () => {
         </WaybarWidgetGroup>
 
         <WaybarWidgetGroup>
-          <WaybarCPUWidget variation={2} frequency={1000} cores={10} />
+          <WaybarCPUWidget
+            variation={1}
+            frequency={1250}
+            cores={10}
+            min={8}
+            max={16}
+          />
           <WaybarRAMWidget
             variation={1}
             frequency={3000}

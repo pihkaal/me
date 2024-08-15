@@ -19,8 +19,19 @@ export const WaybarMicrophoneWidget = () => {
 
   const icon = muted ? "" : "";
 
+  const tooltip =
+    volume === 0 || muted
+      ? "Don't worry I'm not listening to you"
+      : volume === 100
+        ? "Broadcasting loud and clear!"
+        : volume >= 50
+          ? "Your voice sounds really great!"
+          : volume >= 20
+            ? "I can still hear you, just a bit quieter"
+            : "I can barely hear you anymore :(";
+
   return (
-    <WaybarWidget className="pl-[0.625rem] pr-3" interactable>
+    <WaybarWidget className="pl-[0.625rem] pr-3" interactable tooltip={tooltip}>
       <span
         className="text-[#ad6bfd]"
         onWheel={handleWheel}

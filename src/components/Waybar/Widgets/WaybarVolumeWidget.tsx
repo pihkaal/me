@@ -23,8 +23,17 @@ export const WaybarVolumeWidget = () => {
 
   const icon = muted ? "" : lerpIcon(ICONS, volume, 100);
 
+  const toolip =
+    volume === 0 || muted
+      ? "You don't like the music? :("
+      : volume === 100
+        ? "Always maximum volume when it's Hysta"
+        : volume >= 50
+          ? "Turning up the vibes !"
+          : "Enjoying music at a moderate level";
+
   return (
-    <WaybarWidget className="px-[0.625rem]" interactable>
+    <WaybarWidget className="px-[0.625rem]" interactable tooltip={toolip}>
       <span
         className="text-[#407cdd]"
         onWheel={handleWheel}

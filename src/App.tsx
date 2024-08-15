@@ -22,11 +22,11 @@ const AppRoot = () => {
       <main className="h-screen w-screen overflow-hidden bg-[url(/wallpaper.jpg)] bg-cover">
         {loggedIn ? (
           <div className="h-full flex-col">
-            <div className="px-2 py-2">
+            <div className="relative z-10 px-2 py-2">
               <Waybar />
             </div>
 
-            <div className="flex h-[calc(100%-50px)] w-full flex-col">
+            <div className="relative flex h-[calc(100%-50px)] w-full flex-col">
               <Kitty className="w-full flex-1 pb-1 pl-2 pr-2 pt-1">
                 <Nvim />
               </Kitty>

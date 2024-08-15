@@ -36,7 +36,7 @@ export const Music = () => {
         if (!audio.current) return;
 
         setMetadata(m);
-        audio.current.volume = 0.01;
+        audio.current.volume = 0.5;
       });
   }, [metadata]);
 

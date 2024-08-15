@@ -24,7 +24,16 @@ export const WaybarRAMWidget = (props: {
     return () => clearInterval(interval);
   });
 
+  const used = (usage / 100) * props.capacity;
+
   // TODO: tooltip
   // Memory - (capacity * usage).1f GB used
-  return <WaybarWidget className="px-[0.625rem]"> {usage}%</WaybarWidget>;
+  return (
+    <WaybarWidget
+      className="px-[0.625rem]"
+      tooltip={`Memory - ${used.toFixed(1)}GB used`}
+    >
+       {usage}%
+    </WaybarWidget>
+  );
 };
