@@ -28,14 +28,14 @@ export const Waybar = () => {
         <WaybarWidgetGroup>
           <WaybarCPUWidget
             variation={1}
-            frequency={1250}
+            frequency={3250 + randomMinMax(-100, 100)}
             cores={10}
             min={8}
             max={16}
           />
           <WaybarRAMWidget
             variation={1}
-            frequency={3000}
+            frequency={5000 + randomMinMax(-100, 100)}
             min={18}
             max={40}
             start={randomMinMax(20, 30)}
@@ -61,10 +61,10 @@ export const Waybar = () => {
             min={50}
             max={70}
             variation={1}
-            frequency={7000}
+            frequency={7000 + randomMinMax(-100, 100)}
           />
 
-          <WaybarBatteryWidget frequency={7000} />
+          <WaybarBatteryWidget frequency={7000 + randomMinMax(-100, 100)} />
         </WaybarWidgetGroup>
 
         <WaybarWidgetGroup>

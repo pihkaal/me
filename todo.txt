@@ -1,0 +1,3 @@
+- move brightness, volume etc to single state
+- save user state to local storage
+- change title based on focused kitty
