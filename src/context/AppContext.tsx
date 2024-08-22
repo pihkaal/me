@@ -5,7 +5,7 @@ export const AppContext = createContext<
   | Prettify<
       State<"activeKitty", string> &
         State<"brightness", number> &
-        State<"volume", number>
+        State<"volume", number> & { screenWidth: number }
     >
   | undefined
 >(undefined);
