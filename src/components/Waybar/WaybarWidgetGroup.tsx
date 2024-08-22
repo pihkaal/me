@@ -3,7 +3,7 @@ import { cn } from "~/utils/react";
 
 export const WaybarWidgetGroup = (props: {
   className?: string;
-  children: ReactNode | Array<ReactNode>;
+  children: ReactNode;
 }) => (
   <div
     className={cn(

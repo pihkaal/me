@@ -38,7 +38,7 @@ export const WaybarCPUWidget = (props: {
         <ul>
           <li>Total: {totalUsage}%</li>
           {usage.map((value, i) => (
-            <li>
+            <li key={i}>
               Core{i}: {value}%
             </li>
           ))}

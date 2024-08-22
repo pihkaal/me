@@ -3,10 +3,14 @@ import { type IAudioMetadata, parseBlob } from "music-metadata-browser";
 import { Kitty } from "../Kitty";
 import { SpotifyPlayer } from "./SpotifyPlayer";
 import { Cava } from "./Cava";
+import { useApp } from "~/hooks/useApp";
+import { Responsive } from "../Responsive";
 
 const song = "/audio/asinine-vivement-quoi.mp3";
 
 export const Music = () => {
+  const { volume } = useApp();
+
   const audio = useRef<HTMLAudioElement>(null);
 
   const [metadata, setMetadata] = useState<IAudioMetadata>();
@@ -39,6 +43,12 @@ export const Music = () => {
         audio.current.volume = 0.5;
       });
   }, [metadata]);
+
+  useEffect(() => {
+    if (audio.current) {
+      audio.current.volume = volume / 400;
+    }
+  }, [volume]);
 
   return (
     <div className="flex flex-row">
