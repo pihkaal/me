@@ -2,7 +2,7 @@ import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
-  content: ["index.html", "./src/**/*.tsx"],
+  content: ["index.html", "./src/**/*.tsx", "./src/**/*.ts"],
   theme: {
     extend: {
       fontSize: {
