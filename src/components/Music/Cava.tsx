@@ -66,7 +66,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
   const analyserRef = useRef<AnalyserNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const [barHeights, setBarHeights] = useState(
-    new Array<number>(Math.round(props.cols / 3)).fill(0),
+    new Array<number>(Math.floor(props.cols / 3)).fill(0),
   );
 
   const requestRef = useRef<number>();
@@ -77,7 +77,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
     const dataArray = new Uint8Array(bufferLength);
     analyserRef.current.getByteFrequencyData(dataArray);
 
-    const barCount = Math.round(props.cols / 3);
+    const barCount = Math.floor(props.cols / 3);
     const newBarHeights = [];
 
     for (let i = 0; i < barCount; i++) {

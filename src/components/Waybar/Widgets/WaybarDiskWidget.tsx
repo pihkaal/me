@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { WaybarWidget } from "../WaybarWidget";
 import { randomMinMax } from "~/utils/math";
 
@@ -8,8 +9,9 @@ export const WaybarDiskWidget = (props: {
   variation: number;
   capacity: number;
 }) => {
-  const value =
-    props.current + randomMinMax(-props.variation, props.variation + 1);
+  const [value] = useState(
+    props.current + randomMinMax(-props.variation, props.variation + 1),
+  );
   const usage = Math.round((value / props.capacity) * 100);
 
   return (

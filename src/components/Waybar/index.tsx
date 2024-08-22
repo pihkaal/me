@@ -43,7 +43,7 @@ export const Waybar = () => {
             frequency={5000 + randomMinMax(-100, 100)}
             min={18}
             max={40}
-            start={randomMinMax(20, 30)}
+            start={1 + randomMinMax(20, 30)}
             capacity={16}
           />
           <WaybarDiskWidget current={35.9} variation={4.1} capacity={160.3} />
