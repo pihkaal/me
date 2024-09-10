@@ -28,7 +28,7 @@ const buildTree = () =>
         project(p.name, p.content, p.url, p.language, p.private),
       ),
     ),
-    file("README.md", "hey", getIcon("README.md")),
+    ...assets.files.map((f) => file(f.name, f.content)),
   ]);
 
 export const NvimTree = (

@@ -1,4 +1,4 @@
-import { DEFAULT_ICON, ICONS } from "./icons";
+import { DEFAULT_ICON, ICONS, getIcon } from "./icons";
 
 export type Icon = {
   char: string;
@@ -62,7 +62,11 @@ export const link = (name: string, url: string, icon: Icon): Link => ({
   icon,
 });
 
-export const file = (name: string, content: string, icon: Icon): File => ({
+export const file = (
+  name: string,
+  content: string,
+  icon: Icon = getIcon(name),
+): File => ({
   type: "file",
   name,
   content,

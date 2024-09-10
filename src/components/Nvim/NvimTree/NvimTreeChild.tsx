@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { DEFAULT_ICON } from "~/utils/icons";
 import { type Child } from "~/utils/tree";
 
@@ -10,12 +11,26 @@ export const NvimTreeChild = (props: {
   onOpen: (file: Child) => void;
 }) => {
   const icon = props.child.icon ?? DEFAULT_ICON;
+  const [lastClick, setLastClick] = useState<number>();
+
+  const handleClick = () => {
+    props.onSelect(props.y);
+
+    if (lastClick) {
+      if (Date.now() - lastClick <= 500) {
+        props.onOpen(props.child);
+      }
+
+      setLastClick(undefined);
+    } else {
+      setLastClick(Date.now());
+    }
+  };
 
   return (
     <li
       style={{ background: props.selected ? "#504651" : "" }}
-      onMouseDown={() => props.onSelect(props.y)}
-      onDoubleClick={() => props.onOpen(props.child)}
+      onMouseDown={handleClick}
     >
       {"  "}
       {props.inDirectory && (

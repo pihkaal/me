@@ -43,7 +43,6 @@ const InnerNvimTree = (props: InnerKittyProps<typeof Nvim>) => {
         <NvimTree {...props} onOpen={handleOpenChild} />
       </div>
       <div
-        className="overflow-y-auto break-all"
         style={{
           gridArea: "1 / 2 / 1 / 3",
           overflowY: "auto",

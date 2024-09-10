@@ -23,6 +23,11 @@ type Project = {
   private: boolean;
 };
 
+type File = {
+  name: string;
+  content: string;
+};
+
 export const manifest = (): Plugin => ({
   name: "generate-pages-plugin",
   buildStart: async () => {
@@ -86,14 +91,27 @@ export const manifest = (): Plugin => ({
       });
     }
 
+    const files: Array<File> = [];
+    for (const file of manifest.files) {
+      const content = await getRepoFileContent("pihkaal", file);
+
+      files.push({
+        name: file,
+        content,
+      });
+    }
+
     const code = `
       const projects = ${JSON.stringify(projects, null, 2)} as const;
 
       const links = ${JSON.stringify(manifest.links, null, 2)} as const;
 
+      const files = ${JSON.stringify(files, null, 2)} as const;
+
       export const assets = {
         projects,
-        links
+        links,
+        files
       };
     `;
 

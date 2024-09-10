@@ -16,7 +16,6 @@ import { WaybarPowerWidget } from "./Widgets/WaybarPowerWidget";
 import { WaybarTrayWidget } from "./Widgets/WaybarTrayWidget";
 import { WaybarToggleThemeWidget } from "./Widgets/WaybarToggleThemeWidget";
 import { WaybarWeatherWidget } from "./Widgets/WaybarWeatherWidget";
-import { Responsive } from "../Responsive";
 import { cn, hideIf } from "~/utils/react";
 import { useApp } from "~/hooks/useApp";
 
