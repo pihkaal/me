@@ -55,11 +55,11 @@ export const folder = (name: string, children: Array<Child>): Folder => ({
   children,
 });
 
-export const link = (name: string, url: string, icon: Icon): Link => ({
+export const link = (name: string, url: string, icon: string): Link => ({
   type: "link",
   name,
   url,
-  icon,
+  icon: getIcon(icon),
 });
 
 export const file = (

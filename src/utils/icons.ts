@@ -7,6 +7,8 @@ export const getIcon = (file: Child | string | undefined): Icon => {
   if (!file) return DEFAULT_ICON;
 
   if (typeof file === "string") {
+    if (ICONS[file]) return ICONS[file];
+
     const parts = file.split(".");
     const iconName = parts[parts.length - 1];
 
