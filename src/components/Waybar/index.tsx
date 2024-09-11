@@ -13,7 +13,6 @@ import { WaybarMicrophoneWidget } from "./Widgets/WaybarMicrophoneWidget";
 import { WaybarLockWidget } from "./Widgets/WaybarLockWidget";
 import { WaybarTimeWidget } from "./Widgets/WaybarTimeWidget";
 import { WaybarPowerWidget } from "./Widgets/WaybarPowerWidget";
-import { WaybarTrayWidget } from "./Widgets/WaybarTrayWidget";
 import { WaybarToggleThemeWidget } from "./Widgets/WaybarToggleThemeWidget";
 import { WaybarWeatherWidget } from "./Widgets/WaybarWeatherWidget";
 import { cn, hideIf } from "~/utils/react";
@@ -78,7 +77,6 @@ export const Waybar = () => {
         </WaybarWidgetGroup>
 
         <WaybarWidgetGroup className={cn(hideIf(screenWidth < 475))}>
-          <WaybarTrayWidget />
           <WaybarWeatherWidget />
           <WaybarToggleThemeWidget />
         </WaybarWidgetGroup>
