@@ -9,7 +9,7 @@ export const WaybarBatteryWidget = (props: { frequency: number }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBattery((x) => x - 1);
+      // setBattery((x) => x - 1);
 
       if (battery - 1 === 0) {
         // TODO: do something

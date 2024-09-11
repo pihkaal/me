@@ -3,9 +3,15 @@ import { AppContext, type AppContextProps } from "~/context/AppContext";
 
 export const AppProvider = (props: { children?: ReactNode }) => {
   const [activeKitty, setActiveKitty] = useState(":r0:");
-  const [brightness, setBrightness] = useState(100);
-  const [volume, setVolume] = useState(100);
-  const [state, setState] = useState<AppContextProps["state"]>("off");
+  const [brightness, setBrightness] = useState(
+    parseInt(localStorage.getItem("brightness") ?? "100"),
+  );
+  const [volume, setVolume] = useState(
+    parseInt(localStorage.getItem("volume") ?? "100"),
+  );
+  const [state, setState] = useState<AppContextProps["state"]>(
+    (localStorage.getItem("state") as AppContextProps["state"]) ?? "off",
+  );
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -18,6 +24,12 @@ export const AppProvider = (props: { children?: ReactNode }) => {
 
     return () => window.removeEventListener("resize", handleResize);
   });
+
+  useEffect(() => {
+    localStorage.setItem("state", state);
+    localStorage.setItem("brightness", brightness.toString());
+    localStorage.setItem("volume", volume.toString());
+  }, [state, brightness, volume]);
 
   return (
     <AppContext.Provider
