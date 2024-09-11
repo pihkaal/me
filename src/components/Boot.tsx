@@ -22,7 +22,11 @@ export const Boot = () => {
 
     const timeout = setTimeout(
       () => setLine(line + 1),
-      Math.random() * 750 + 200,
+      line === 0
+        ? 3500
+        : line === LINES.length - 1
+          ? 1200
+          : Math.random() * 750 + 200,
     );
     return () => clearTimeout(timeout);
   }, [setState, line]);

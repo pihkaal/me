@@ -1,25 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useApp } from "~/hooks/useApp";
 
 export const Off = () => {
-  const { setState } = useApp();
-  const [clicked, setClicked] = useState(false);
+  const { state, setState } = useApp();
+  const [booting, setBooting] = useState(state === "reboot");
 
-  const handleClick = () => {
-    setClicked(true);
+  useEffect(() => {
+    if (booting) {
+      const timout = setTimeout(() => {
+        if (state === "suspend") {
+          setState("login");
+        } else {
+          setState("boot");
+        }
+      }, 1000);
 
-    setTimeout(() => {
-      setState("boot");
-    }, 1000);
-  };
+      return () => clearTimeout(timout);
+    }
+  }, [booting]);
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-black">
       <button
         className={`drop-shadow-white cursor-pointer transition-all ${
-          clicked ? "animate-disappear" : "animate-breathing"
+          booting ? "animate-disappear" : "animate-breathing"
         }`}
-        onClick={handleClick}
+        onClick={() => setBooting(true)}
       >
         <svg viewBox="0 0 34 34" width="128">
           <path

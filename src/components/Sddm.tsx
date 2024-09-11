@@ -50,7 +50,7 @@ export const Sddm = () => {
           Math.random() > 0.18;
         setPassword(Math.max(0, password + (canType ? 1 : -1)));
       },
-      password === 0 ? 3000 : Math.random() * 250 + 250,
+      password === 0 ? 3000 : Math.random() * 250 + 175,
     );
     return () => clearTimeout(timeout);
   }, [password]);
@@ -141,6 +141,7 @@ export const Sddm = () => {
             <div className="flex gap-8">
               <SddmActionButton
                 key="suspend"
+                onClick={() => setState("suspend")}
                 icon={
                   <svg viewBox="0 0 34 34" width="38">
                     <path
@@ -154,6 +155,7 @@ export const Sddm = () => {
 
               <SddmActionButton
                 key="reboot"
+                onClick={() => setState("reboot")}
                 icon={
                   <svg width="38" viewBox="0 0 34 34">
                     <g transform="matrix(1.000593,0,0,1.0006688,0.99050505,-287.73702)">
@@ -169,6 +171,7 @@ export const Sddm = () => {
               />
               <SddmActionButton
                 key="shutdown"
+                onClick={() => setState("off")}
                 icon={
                   <svg viewBox="0 0 34 34" width="38">
                     <path

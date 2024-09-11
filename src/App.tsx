@@ -14,7 +14,7 @@ const AppRoot = () => {
 
   const opacity = clamp(0.5 - (0.5 * brightness) / 100, 0, 0.5);
 
-  if (state === "off") {
+  if (state === "off" || state === "reboot" || state === "suspend") {
     return <Off />;
   }
 
