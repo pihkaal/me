@@ -1,93 +1,79 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { type IAudioMetadata, parseBlob } from "music-metadata-browser";
+import { useEffect, useState } from "react";
 import { Kitty } from "../Kitty";
 import { SpotifyPlayer } from "./SpotifyPlayer";
-import { Cava } from "./Cava";
 import { useApp } from "~/hooks/useApp";
 import { cn, hideIf } from "~/utils/react";
 
-const song = "/audio/asinine-vivement-quoi.mp3";
+export type CurrentlyPlaying = {
+  item: {
+    album: {
+      name: string;
+    };
+    name: string;
+    artists: { name: string }[];
+    duration_ms: number;
+  };
+  progress_ms: number;
+};
 
 export const Music = () => {
-  const { volume, screenWidth } = useApp();
-
-  const audio = useRef<HTMLAudioElement>(null);
-
-  const [metadata, setMetadata] = useState<IAudioMetadata>();
-  const [currentTime, setCurrentTime] = useState(0);
-
-  const handleTimeUpdate = useCallback(() => {
-    setCurrentTime(audio.current?.currentTime ?? 0);
-  }, []);
-
-  const handleTogglePause = useCallback((paused: boolean) => {
-    if (!audio.current) return;
-
-    if (paused) {
-      void audio.current.pause();
-    } else {
-      void audio.current.play();
-    }
-  }, []);
+  const { screenWidth } = useApp();
+  const [playing, setPlaying] = useState<CurrentlyPlaying | null>(null);
 
   useEffect(() => {
-    if (metadata) return;
+    const fetchCurrentlyPlaying = () =>
+      fetch("http://213.210.20.230:3000/currently-playing?format=json")
+        .then((r) => r.json())
+        .then((data: CurrentlyPlaying) => {
+          data.progress_ms = Math.max(0, data.progress_ms - 1500);
+          setPlaying(data);
+        })
+        .catch(() => setPlaying(null));
 
-    void fetch(song)
-      .then((r) => r.blob())
-      .then((b) => parseBlob(b))
-      .then((m) => {
-        if (!audio.current) return;
+    const interval = setInterval(() => {
+      setPlaying((prev) => {
+        if (prev === null) return null;
 
-        setMetadata(m);
-        audio.current.volume = 0.5;
+        if (prev.progress_ms >= prev.item.duration_ms) {
+          void fetchCurrentlyPlaying();
+          return prev;
+        }
+
+        return {
+          ...prev,
+          progress_ms: Math.min(prev.item.duration_ms, prev.progress_ms + 1000),
+        };
       });
-  }, [metadata]);
+    }, 1000);
 
-  useEffect(() => {
-    if (audio.current) {
-      audio.current.volume = volume / 400;
-    }
-  }, [volume]);
+    void fetchCurrentlyPlaying();
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="flex flex-row">
-      <audio ref={audio} src={song} onTimeUpdate={handleTimeUpdate} loop />
-      {audio.current && metadata ? (
-        <>
-          <Kitty
-            className={cn(
-              "h-full pb-2 pl-2 pr-1 pt-1",
-              screenWidth < 900 ? "w-full" : "w-1/2",
-            )}
-            rows={5}
-          >
-            <SpotifyPlayer
-              title={metadata.common.title ?? "Unknown"}
-              artist={metadata.common.artist ?? "Unknown"}
-              album={metadata.common.album ?? "Unknown"}
-              played={currentTime}
-              onTogglePause={handleTogglePause}
-              duration={audio.current.duration}
-            />
-          </Kitty>
+      <Kitty
+        className={cn(
+          "h-full pb-2 pl-2 pr-1 pt-1",
+          screenWidth < 900 ? "w-full" : "w-1/2",
+        )}
+        rows={5}
+      >
+        <SpotifyPlayer playing={playing} />
+      </Kitty>
 
-          <Kitty
-            className={cn(
-              "h-full w-1/2 pb-2 pl-1 pr-2 pt-1",
-              hideIf(screenWidth < 900),
-            )}
-            rows={5}
-          >
-            <Cava audio={audio} />
-          </Kitty>
-        </>
-      ) : (
-        <>
-          <Kitty className="h-full w-1/2 pb-2 pl-2 pr-1 pt-1" rows={5} />
-          <Kitty className="h-full w-1/2 pb-2 pl-1 pr-2 pt-1" rows={5} />
-        </>
-      )}
+      <Kitty
+        className={cn(
+          "h-full w-1/2 pb-2 pl-1 pr-2 pt-1",
+          hideIf(screenWidth < 900),
+        )}
+        rows={5}
+      >
+        {/*<Cava audio={audio} />*/}
+      </Kitty>
     </div>
   );
 };
