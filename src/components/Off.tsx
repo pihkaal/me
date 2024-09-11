@@ -20,7 +20,7 @@ export const Off = () => {
   }, [booting]);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-black">
+    <div className="flex h-screen w-screen flex-col items-center justify-center bg-black">
       <button
         className={`drop-shadow-white cursor-pointer transition-all ${
           booting ? "animate-disappear" : "animate-breathing"
@@ -34,6 +34,10 @@ export const Off = () => {
           />
         </svg>
       </button>
+
+      <p className="absolute bottom-2 left-1/2 -translate-x-1/2 text-sm text-gray-400 text-white">
+        This website is primarly made for desktop
+      </p>
     </div>
   );
 };
