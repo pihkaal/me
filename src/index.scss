@@ -51,3 +51,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
+.drop-shadow-white:hover {
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 1));
+}

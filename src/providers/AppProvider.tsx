@@ -1,10 +1,11 @@
 import { type ReactNode, useState, useEffect } from "react";
-import { AppContext } from "~/context/AppContext";
+import { AppContext, type AppContextProps } from "~/context/AppContext";
 
 export const AppProvider = (props: { children?: ReactNode }) => {
   const [activeKitty, setActiveKitty] = useState(":r0:");
   const [brightness, setBrightness] = useState(100);
   const [volume, setVolume] = useState(100);
+  const [state, setState] = useState<AppContextProps["state"]>("off");
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -28,6 +29,8 @@ export const AppProvider = (props: { children?: ReactNode }) => {
         volume,
         setVolume,
         screenWidth,
+        state,
+        setState,
       }}
     >
       {props.children}

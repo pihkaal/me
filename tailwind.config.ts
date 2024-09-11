@@ -5,6 +5,29 @@ const config = {
   content: ["index.html", "./src/**/*.tsx", "./src/**/*.ts"],
   theme: {
     extend: {
+      keyframes: {
+        fadeOut: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
+        breathing: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.9" },
+          "50%": {
+            transform: "scale(1.1)",
+            opacity: "1",
+          },
+        },
+        disappear: {
+          "0%": { transform: "scale(1)", opacity: "0.95" },
+          "20%": { transform: "scale(1.2)", opacity: "1" },
+          "100%": { transform: "scale(0)", opacity: "0" },
+        },
+      },
+      animation: {
+        fadeOut: "fadeOut 250ms ease-out forwards",
+        breathing: "breathing 4s ease-in-out infinite",
+        disappear: "disappear 750ms ease-out forwards",
+      },
       fontSize: {
         sm: "0.8rem",
         base: "1rem",
