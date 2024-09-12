@@ -6,6 +6,7 @@ import { cn, hideIf } from "~/utils/react";
 import { Cava } from "./Cava";
 
 export type CurrentlyPlaying = {
+  is_playing: boolean;
   item: {
     album: {
       name: string;
@@ -26,12 +27,19 @@ export const Music = () => {
       fetch("https://api.pihkaal.me/currently-playing?format=json")
         .then((r) => r.json())
         .then((data: CurrentlyPlaying) => {
-          data.progress_ms = Math.max(0, data.progress_ms - 1500);
-          setPlaying(data);
-        })
-        .catch(() => setPlaying(null));
+          if (data.is_playing) {
+            data.progress_ms = Math.max(0, data.progress_ms - 1500);
+            setPlaying(data);
+          } else {
+            setPlaying(null);
+          }
+        });
 
-    const interval = setInterval(() => {
+    const updatePlayingInterval = setInterval(() => {
+      void fetchCurrentlyPlaying();
+    }, 1000 * 10);
+
+    const updateTimeInterval = setInterval(() => {
       setPlaying((prev) => {
         if (prev === null) return null;
 
@@ -50,7 +58,8 @@ export const Music = () => {
     void fetchCurrentlyPlaying();
 
     return () => {
-      clearInterval(interval);
+      clearInterval(updateTimeInterval);
+      clearInterval(updatePlayingInterval);
     };
   }, []);
 
