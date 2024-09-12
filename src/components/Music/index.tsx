@@ -3,6 +3,7 @@ import { Kitty } from "../Kitty";
 import { SpotifyPlayer } from "./SpotifyPlayer";
 import { useApp } from "~/hooks/useApp";
 import { cn, hideIf } from "~/utils/react";
+import { Cava } from "./Cava";
 
 export type CurrentlyPlaying = {
   item: {
@@ -22,7 +23,7 @@ export const Music = () => {
 
   useEffect(() => {
     const fetchCurrentlyPlaying = () =>
-      fetch("http://213.210.20.230:3000/currently-playing?format=json")
+      fetch("https://api.pihkaal.me/currently-playing?format=json")
         .then((r) => r.json())
         .then((data: CurrentlyPlaying) => {
           data.progress_ms = Math.max(0, data.progress_ms - 1500);
@@ -72,7 +73,7 @@ export const Music = () => {
         )}
         rows={5}
       >
-        {/*<Cava audio={audio} />*/}
+        <Cava />
       </Kitty>
     </div>
   );

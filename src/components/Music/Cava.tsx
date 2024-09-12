@@ -1,15 +1,9 @@
-import {
-  type RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { type InnerKittyProps } from "~/utils/types";
 import { CHAR_WIDTH } from "../Kitty";
 import { useKitty } from "~/hooks/useKitty";
 
-export const Cava = (props: { audio: RefObject<HTMLAudioElement> }) => {
+export const Cava = (_props: {}) => {
   const kitty = useKitty();
 
   return (
@@ -21,7 +15,7 @@ export const Cava = (props: { audio: RefObject<HTMLAudioElement> }) => {
         gridTemplateRows: `1fr`,
       }}
     >
-      {kitty && <InnerCava {...props} {...kitty} />}
+      {kitty && <InnerCava {...kitty} />}
     </div>
   );
 };
@@ -62,31 +56,32 @@ const FrequencyBar = (props: {
 };
 
 const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
-  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+  const sourceRef = useRef<AudioBufferSourceNode | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const dataArray = useRef<Uint8Array | null>(null);
   const [barHeights, setBarHeights] = useState(
     new Array<number>(Math.floor(props.cols / 3)).fill(0),
   );
 
   const requestRef = useRef<number>();
-  const calculateBarHeights = useCallback(() => {
-    if (!analyserRef.current) return;
+  const calculateBarHeights = () => {
+    if (!dataArray.current || !analyserRef.current) return;
 
-    const bufferLength = analyserRef.current.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    analyserRef.current.getByteFrequencyData(dataArray);
+    analyserRef.current.getByteFrequencyData(dataArray.current);
 
-    const barCount = Math.floor(props.cols / 3);
+    const barCount = Math.floor(props.cols / 2);
     const newBarHeights = [];
 
     for (let i = 0; i < barCount; i++) {
-      const startIndex = Math.floor((i / barCount) * bufferLength);
-      const endIndex = Math.floor(((i + 1) / barCount) * bufferLength);
-      const slice = dataArray.slice(startIndex, endIndex);
+      const startIndex = Math.floor((i / barCount) * dataArray.current.length);
+      const endIndex = Math.floor(
+        ((i + 1) / barCount) * dataArray.current.length,
+      );
+      const slice = dataArray.current.slice(startIndex, endIndex);
       const sum = slice.reduce((acc, val) => acc + val, 0);
       const average = sum / slice.length;
-      newBarHeights.push(average);
+      newBarHeights.push(average * 0.9);
     }
 
     const stateBarHeights =
@@ -95,45 +90,60 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
         : barHeights;
 
     const smoothedBarHeights = newBarHeights.map((height, i) => {
-      const smoothingFactor = 1;
+      const smoothingFactor = 0.8;
       return (
-        stateBarHeights[i]! + (height - stateBarHeights[i]!) * smoothingFactor
+        stateBarHeights[i] + (height - stateBarHeights[i]) * smoothingFactor
       );
     });
 
     setBarHeights(smoothedBarHeights);
 
     requestRef.current = requestAnimationFrame(calculateBarHeights);
-  }, [props.cols, barHeights]);
+  };
 
   useEffect(() => {
-    const audioElement = props.audio.current;
-    if (!audioElement) return;
+    const fetchAudio = async () => {
+      try {
+        const audioContext = new AudioContext();
+        audioContextRef.current = audioContext;
 
-    const audioContext = new AudioContext();
-    audioContextRef.current = audioContext;
+        const response = await fetch("/audio/mesmerizing_galaxy.mp3");
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
+        const analyserNode = audioContext.createAnalyser();
+        analyserNode.fftSize = 256;
 
-    void audioElement.play().then(() => void audioContext.resume());
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.loop = true;
+        source.connect(analyserNode);
+        analyserNode.connect(audioContext.destination);
 
-    if (!sourceRef.current) {
-      const source = audioContext.createMediaElementSource(audioElement);
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-      sourceRef.current = source;
-      analyserRef.current = analyser;
+        analyserRef.current = analyserNode;
+        sourceRef.current = source;
+        dataArray.current = new Uint8Array(analyserNode.frequencyBinCount);
+
+        requestRef.current = requestAnimationFrame(calculateBarHeights);
+
+        source.start();
+      } catch (error) {
+        console.error("Error fetching or decoding audio:", error);
+      }
+    };
+
+    if (audioContextRef.current) {
+      requestRef.current = requestAnimationFrame(calculateBarHeights);
+    } else {
+      fetchAudio();
     }
-
-    requestRef.current = requestAnimationFrame(calculateBarHeights);
 
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [props.cols, props.audio]);
+  }, [calculateBarHeights]);
 
-  return barHeights.map((value, i) => (
-    <FrequencyBar key={i} value={value} max={255 / 2} height={props.rows} />
+  return barHeights.map((height, i) => (
+    <FrequencyBar key={i} value={height} max={255} height={props.rows} />
   ));
 };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { formatMMSS } from "../../utils/time";
 import { CharArray } from "../../utils/string";
 import { CHAR_HEIGHT, CHAR_WIDTH } from "../Kitty";
