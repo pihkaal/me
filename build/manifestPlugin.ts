@@ -1,5 +1,5 @@
 import { Plugin } from "vite";
-import { readFile, writeFile } from "fs/promises";
+import { mkdir, readFile, writeFile } from "fs/promises";
 import { spawnSync } from "child_process";
 import { Octokit, RestEndpointMethodTypes } from "@octokit/rest";
 import { env } from "./env";
@@ -56,6 +56,7 @@ export const manifest = (): Plugin => ({
       if (storedUpdatedAt === manifestRepo.updated_at) return;
     } catch {}
 
+    await mkdir("./node_modules/.cache");
     await writeFile("./node_modules/.cache/assets", manifestRepo.updated_at);
 
     const getRepoFileContent = async (repo: string, path: string) => {
