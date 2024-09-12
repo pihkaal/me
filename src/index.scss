@@ -17,7 +17,8 @@
 
 body {
   margin: 0;
-  font-family: "JetBrains Mono";
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", "Source Code Pro",
+    "IBM Plex Mono", "Menlo", "DejaVu Sans Mono", "Liberation Mono", monospace;
 }
 
 *::selection {
