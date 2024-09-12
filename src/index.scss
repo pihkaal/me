@@ -38,3 +38,25 @@ body {
 .drop-shadow-white:hover {
   filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 1));
 }
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #f7ddd9;
+    border-radius: 4px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #f7ddd9 transparent;
+  }
+}

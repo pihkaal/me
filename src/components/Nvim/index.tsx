@@ -43,10 +43,12 @@ const InnerNvimTree = (props: InnerKittyProps<typeof Nvim>) => {
         <NvimTree {...props} onOpen={handleOpenChild} />
       </div>
       <div
+        className="scrollbar overflow-y-scroll"
         style={{
           gridArea: "1 / 2 / 1 / 3",
           overflowY: "auto",
           wordWrap: "break-word",
+          scrollSnapType: "inline",
         }}
       >
         <NvimEditor content={activeChild?.content} />
