@@ -31,13 +31,13 @@ type File = {
 export const manifest = (): Plugin => ({
   name: "generate-pages-plugin",
   buildStart: async () => {
-    const octokit = new Octokit({ auth: env.GITHUB_PAT });
+    const octokit = new Octokit({ auth: env.GH_PAT });
     let manifestRepo: RestEndpointMethodTypes["repos"]["get"]["response"]["data"];
 
     try {
       const { data } = await octokit.repos.get({
-        owner: env.GITHUB_USERNAME,
-        repo: env.GITHUB_USERNAME,
+        owner: "pihkaal",
+        repo: "pihkaal",
       });
       manifestRepo = data;
     } catch {
@@ -56,12 +56,12 @@ export const manifest = (): Plugin => ({
       if (storedUpdatedAt === manifestRepo.updated_at) return;
     } catch {}
 
-    await mkdir("./node_modules/.cache");
+    await mkdir("./node_modules/.cache", { recursive: true });
     await writeFile("./node_modules/.cache/assets", manifestRepo.updated_at);
 
     const getRepoFileContent = async (repo: string, path: string) => {
       const { data: file } = await octokit.repos.getContent({
-        owner: env.GITHUB_USERNAME,
+        owner: "pihkaal",
         repo,
         path,
       });
@@ -72,13 +72,13 @@ export const manifest = (): Plugin => ({
     };
 
     const manifest = JSON.parse(
-      await getRepoFileContent(env.GITHUB_USERNAME, "manifest.json"),
+      await getRepoFileContent("pihkaal", "manifest.json"),
     ) as Manifest;
 
     const projects: Array<Project> = [];
     for (const project of manifest.projects) {
       const { data: repo } = await octokit.repos.get({
-        owner: env.GITHUB_USERNAME,
+        owner: "pihkaal",
         repo: project,
       });
       const content = await getRepoFileContent(project, "README.md");

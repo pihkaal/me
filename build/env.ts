@@ -3,9 +3,10 @@ import { configDotenv } from "dotenv";
 
 configDotenv();
 
+// yeah ok might be overkill lol but I had more env variables before
+
 const schema = z.object({
-  GITHUB_PAT: z.string().min(1),
-  GITHUB_USERNAME: z.string().min(1),
+  GH_PAT: z.string().min(1),
 });
 
 const result = schema.safeParse(process.env);
