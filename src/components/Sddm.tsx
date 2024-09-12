@@ -47,7 +47,7 @@ export const Sddm = () => {
         const canType =
           password < 4 ||
           password === PASSWORD_LENGTH - 1 ||
-          Math.random() > 0.2;
+          Math.random() > 0.15;
         setPassword(Math.max(0, password + (canType ? 1 : -1)));
       },
       password === 0 ? 1000 : Math.random() * 250 + 100,
@@ -127,12 +127,9 @@ export const Sddm = () => {
 
             <div className="flex min-w-[210px] flex-col gap-1 text-left transition-colors lg:w-1/2">
               <button
+                disabled={password !== PASSWORD_LENGTH}
                 onClick={() => setState("desktop")}
-                className={`w-full select-none rounded-full p-2 ${
-                  password === PASSWORD_LENGTH
-                    ? "bg-neutral-800 hover:bg-zinc-800"
-                    : "cursor-default bg-white bg-opacity-30"
-                }`}
+                className="w-full select-none rounded-full bg-neutral-800 p-2 hover:bg-zinc-800 disabled:cursor-default disabled:bg-white disabled:bg-opacity-30"
               >
                 Login
               </button>
