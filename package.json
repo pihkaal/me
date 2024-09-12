@@ -12,17 +12,12 @@
     "format": "prettier --cache --write ."
   },
   "dependencies": {
-    "axios": "^1.6.7",
-    "music-metadata-browser": "^2.5.10",
+    "clsx": "^2.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwind-merge": "^2.2.1",
-    "vite-tsconfig-paths": "^4.3.1",
-    "zod": "^3.22.4"
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@octokit/rest": "^21.0.0",
     "@types/eslint": "^8.56.1",
     "@types/node": "^18.19.6",
@@ -32,7 +27,6 @@
     "@typescript-eslint/parser": "^6.18.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.16",
-    "clsx": "^2.1.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4",
@@ -41,11 +35,12 @@
     "postcss": "^8.4.33",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.11",
-    "rollup-plugin-polyfill-node": "^0.13.0",
     "sass": "^1.70.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12"
+    "vite": "^5.0.12",
+    "vite-tsconfig-paths": "^4.3.1",
+    "zod": "^3.23.8"
   },
   "ct3aMetadata": {
     "initVersion": "7.25.1"
