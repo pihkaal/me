@@ -47,10 +47,10 @@ export const Sddm = () => {
         const canType =
           password < 4 ||
           password === PASSWORD_LENGTH - 1 ||
-          Math.random() > 0.18;
+          Math.random() > 0.2;
         setPassword(Math.max(0, password + (canType ? 1 : -1)));
       },
-      password === 0 ? 3000 : Math.random() * 250 + 175,
+      password === 0 ? 1000 : Math.random() * 250 + 100,
     );
     return () => clearTimeout(timeout);
   }, [password]);
