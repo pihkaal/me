@@ -28,7 +28,7 @@ const AppRoot = () => {
         className="pointer-events-none fixed inset-0 z-20 bg-black"
         style={{ opacity }}
       />
-      <main className="h-screen w-screen overflow-hidden bg-[url(/wallpaper.jpg)] bg-cover bg-center">
+      <main className="h-screen w-screen overflow-hidden bg-[url(/wallpaper.webp)] bg-cover bg-center">
         {state === "login" ? (
           <Sddm />
         ) : (
