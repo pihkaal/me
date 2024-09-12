@@ -5,10 +5,10 @@ export const WaybarWeatherWidget = () => {
   const [temperature, setTemperature] = useState<string>("??");
 
   useEffect(() => {
-    fetch("https://wttr.in/Brest?format=j1")
+    void fetch("https://wttr.in/Brest?format=j1")
       .then((response) => response.json())
-      .then((data) =>
-        setTemperature(data.current_condition[0].temp_C as string),
+      .then((data: { current_condition: Array<{ temp_C: string }> }) =>
+        setTemperature(data.current_condition[0].temp_C),
       );
   }, []);
 

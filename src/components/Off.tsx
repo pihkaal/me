@@ -17,7 +17,7 @@ export const Off = () => {
 
       return () => clearTimeout(timout);
     }
-  }, [booting]);
+  }, [state, setState, booting]);
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center bg-black">

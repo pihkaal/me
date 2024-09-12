@@ -3,6 +3,7 @@ import { type InnerKittyProps } from "~/utils/types";
 import { CHAR_WIDTH } from "../Kitty";
 import { useKitty } from "~/hooks/useKitty";
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const Cava = (_props: {}) => {
   const kitty = useKitty();
 
@@ -65,7 +66,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
   );
 
   const requestRef = useRef<number>();
-  const calculateBarHeights = () => {
+  const calculateBarHeights = useCallback(() => {
     if (!dataArray.current || !analyserRef.current) return;
 
     analyserRef.current.getByteFrequencyData(dataArray.current);
@@ -99,7 +100,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
     setBarHeights(smoothedBarHeights);
 
     requestRef.current = requestAnimationFrame(calculateBarHeights);
-  };
+  }, [barHeights, props.cols]);
 
   useEffect(() => {
     const fetchAudio = async () => {
@@ -135,7 +136,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
     if (audioContextRef.current) {
       requestRef.current = requestAnimationFrame(calculateBarHeights);
     } else {
-      fetchAudio();
+      void fetchAudio();
     }
 
     return () => {

@@ -6,7 +6,6 @@ import { type Nvim } from "..";
 import { NvimTreeDirectory } from "./NvimTreeDirectory";
 import { NvimTreeChild } from "./NvimTreeChild";
 import { assets } from "~/assets";
-import { getIcon } from "~/utils/icons";
 import {
   file,
   folder,

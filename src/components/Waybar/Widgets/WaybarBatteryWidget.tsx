@@ -5,7 +5,7 @@ import { lerpIcon } from "~/utils/icons";
 const ICONS = ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"];
 
 export const WaybarBatteryWidget = (props: { frequency: number }) => {
-  const [battery, setBattery] = useState(100);
+  const [battery] = useState(100);
 
   useEffect(() => {
     const interval = setInterval(() => {
