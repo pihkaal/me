@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { type InnerKittyProps } from "~/utils/types";
 import { CHAR_WIDTH } from "../Kitty";
 import { useKitty } from "~/hooks/useKitty";
+import { platform } from "os";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const Cava = (_props: {}) => {
+export const Cava = (props: { animate: boolean }) => {
   const kitty = useKitty();
 
   return (
@@ -16,7 +16,7 @@ export const Cava = (_props: {}) => {
         gridTemplateRows: `1fr`,
       }}
     >
-      {kitty && <InnerCava {...kitty} />}
+      {kitty && <InnerCava {...props} {...kitty} />}
     </div>
   );
 };
@@ -150,6 +150,11 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
   }, [calculateBarHeights]);
 
   return barHeights.map((height, i) => (
-    <FrequencyBar key={i} value={height} max={255} height={props.rows} />
+    <FrequencyBar
+      key={i}
+      value={props.animate ? height : 0}
+      max={255}
+      height={props.rows}
+    />
   ));
 };

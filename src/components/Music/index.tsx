@@ -82,7 +82,7 @@ export const Music = () => {
         )}
         rows={5}
       >
-        <Cava />
+        <Cava animate={playing !== null} />
       </Kitty>
     </div>
   );
