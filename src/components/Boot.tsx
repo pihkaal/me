@@ -32,7 +32,7 @@ export const Boot = () => {
   }, [setState, line]);
 
   return (
-    <main className="h-screen w-screen bg-black text-white">
+    <main className="h-[100svh] w-screen bg-black text-white">
       {LINES.filter((_, i) => i <= line).map((line, i) => (
         <p key={i}>{line}</p>
       ))}

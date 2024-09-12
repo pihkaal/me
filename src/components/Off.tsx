@@ -20,7 +20,7 @@ export const Off = () => {
   }, [state, setState, booting]);
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-black">
+    <div className="flex h-[100svh] w-screen flex-col items-center justify-center bg-black">
       <button
         className={`drop-shadow-white cursor-pointer transition-all ${
           booting ? "animate-disappear" : "animate-breathing"
