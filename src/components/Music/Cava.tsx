@@ -47,7 +47,7 @@ const FrequencyBar = (props: {
     bar += `${" ".repeat(WIDTH)}\n`.repeat(Math.max(emptyBlocksCount, 0));
 
     if (remainderIndex > 0) {
-      bar += `${GRADIENT[remainderIndex]!.repeat(WIDTH)}\n`;
+      bar += `${GRADIENT[remainderIndex].repeat(WIDTH)}\n`;
     }
     bar += `${FULL_BLOCK.repeat(WIDTH)}\n`.repeat(fullBlocksCount);
   }
