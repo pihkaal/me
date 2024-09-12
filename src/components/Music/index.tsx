@@ -64,7 +64,7 @@ export const Music = () => {
   }, []);
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row pb-1">
       <Kitty
         className={cn(
           "h-full pb-2 pl-2 pr-1 pt-1",
