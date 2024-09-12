@@ -70,13 +70,13 @@ export const Waybar = () => {
           <WaybarBatteryWidget frequency={7000 + randomMinMax(-100, 100)} />
         </WaybarWidgetGroup>
 
-        <WaybarWidgetGroup className={cn(hideIf(screenWidth < 970))}>
+        <WaybarWidgetGroup className={cn(hideIf(screenWidth < 890))}>
           <WaybarBrightnessWidget />
           <WaybarVolumeWidget />
           <WaybarMicrophoneWidget />
         </WaybarWidgetGroup>
 
-        <WaybarWidgetGroup className={cn(hideIf(screenWidth < 475))}>
+        <WaybarWidgetGroup className={cn(hideIf(screenWidth < 490))}>
           <WaybarWeatherWidget />
           <WaybarToggleThemeWidget />
         </WaybarWidgetGroup>
