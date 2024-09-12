@@ -18,18 +18,18 @@ export const WaybarBrightnessWidget = () => {
 
   const tooltip =
     brightness === 100
-      ? "Full"
+      ? "Flashbang mode"
       : brightness >= 70
-        ? "Almost full"
+        ? "Bright as a Brest day!"
         : brightness >= 50
-          ? "Halfway down, but still doing great. I wonder what happens if the brightness reaches 0"
+          ? "Halfway to becoming a night owl"
           : brightness >= 25
-            ? "Uh maybe you should consider charging me ?"
+            ? "I'm scared of the dark please stop"
             : brightness >= 15
-              ? "It's really reaching low level now"
+              ? "Just turn off you screen at this point"
               : brightness >= 5
-                ? "Are you ignoring my messages ??"
-                : "I warned you";
+                ? "Can you even read now ?"
+                : "So dark";
 
   return (
     <WaybarWidget className="pl-3 pr-[0.625rem]" tooltip={tooltip}>

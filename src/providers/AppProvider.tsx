@@ -26,7 +26,7 @@ export const AppProvider = (props: { children?: ReactNode }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem("state", state);
+    localStorage.setItem("state", state === "desktop" ? "login" : state);
     localStorage.setItem("brightness", brightness.toString());
     localStorage.setItem("volume", volume.toString());
   }, [state, brightness, volume]);
