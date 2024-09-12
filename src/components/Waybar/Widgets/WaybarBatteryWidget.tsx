@@ -39,7 +39,8 @@ export const WaybarBatteryWidget = (props: { frequency: number }) => {
       className="pl-[0.625rem] pr-3 text-[#1d7715]"
       tooltip={tooltip}
     >
-      {lerpIcon(ICONS, battery, 100)} {battery}%
+      <span className="font-normal">{lerpIcon(ICONS, battery, 100)}</span>{" "}
+      {battery}%
     </WaybarWidget>
   );
 };

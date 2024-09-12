@@ -10,7 +10,7 @@ export const WaybarPowerWidget = () => {
       onClick={() => setState("off")}
       interactable
     >
-      <button></button>
+      <span className="font-normal"></span>
     </WaybarWidget>
   );
 };

@@ -45,7 +45,7 @@ export const WaybarCPUWidget = (props: {
         </ul>
       }
     >
-       {totalUsage}%
+      <span className="font-normal"></span> {totalUsage}%
     </WaybarWidget>
   );
 };

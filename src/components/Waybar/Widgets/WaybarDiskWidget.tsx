@@ -21,7 +21,7 @@ export const WaybarDiskWidget = (props: {
         props.capacity
       }GiB on / (${usage}%)`}
     >
-      󰋊 {usage}%
+      <span className="font-normal">󰋊</span> {usage}%
     </WaybarWidget>
   );
 };

@@ -33,7 +33,7 @@ export const WaybarRAMWidget = (props: {
       className="px-[0.625rem]"
       tooltip={`Memory - ${used.toFixed(1)}GB used`}
     >
-       {usage}%
+      <span className="font-normal"></span> {usage}%
     </WaybarWidget>
   );
 };

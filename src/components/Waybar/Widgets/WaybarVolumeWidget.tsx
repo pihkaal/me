@@ -39,7 +39,7 @@ export const WaybarVolumeWidget = () => {
         onWheel={handleWheel}
         onClick={handleClick}
       >
-        {icon} {!muted && `${volume}%`}
+        <span className="font-normal">{icon}</span> {!muted && `${volume}%`}
       </span>
     </WaybarWidget>
   );

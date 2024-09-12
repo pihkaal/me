@@ -13,9 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@import url(https://fonts.bunny.net/css?family=jetbrains-mono:700,800);
+
 body {
   margin: 0;
-  font-family: "JetBrainsMono";
+  font-family: "JetBrains Mono";
 }
 
 *::selection {
@@ -23,31 +25,11 @@ body {
 }
 
 @font-face {
-  font-family: "JetBrainsMono";
+  font-family: "JetBrains Mono";
   src:
     url("/fonts/JetBrainsMonoNF-Medium.woff2") format("woff2"),
     url("/fonts/JetBrainsMonoNF-Medium.woff") format("woff");
   font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrainsMono";
-  src:
-    url("/fonts/JetBrainsMonoNF-Bold.woff2") format("woff2"),
-    url("/fonts/JetBrainsMonoNF-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrainsMono";
-  src:
-    url("/fonts/JetBrainsMonoNF-ExtraBold.woff2") format("woff2"),
-    url("/fonts/JetBrainsMonoNF-ExtraBold.woff") format("woff");
-  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }

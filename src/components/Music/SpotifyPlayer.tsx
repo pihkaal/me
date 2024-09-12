@@ -128,7 +128,9 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
       {/* body */}
       <div className="overflow-hidden" style={{ gridArea: "2 / 2 / 3 / 4" }}>
         <span className="font-extrabold text-color6">
-          <span>{false ? "\udb81\udc0a " : "\udb80\udfe4 "}</span>
+          <span className="font-normal">
+            {false ? "\udb81\udc0a " : "\udb80\udfe4 "}
+          </span>
           {props.playing.item.name} ·{" "}
           {props.playing.item.artists.map((a) => a.name).join(", ")}
         </span>

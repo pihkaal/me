@@ -10,7 +10,7 @@ export const WaybarLockWidget = () => {
       onClick={() => setState("login")}
       interactable
     >
-      <button></button>
+      <span className="font-normal"></span>
     </WaybarWidget>
   );
 };

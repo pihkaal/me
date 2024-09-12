@@ -34,7 +34,8 @@ export const WaybarBrightnessWidget = () => {
   return (
     <WaybarWidget className="pl-3 pr-[0.625rem]" tooltip={tooltip}>
       <span onWheel={handleScroll}>
-        {lerpIcon(ICONS, brightness, 100)} {brightness}%
+        <span className="font-normal">{lerpIcon(ICONS, brightness, 100)}</span>{" "}
+        {brightness}%
       </span>
     </WaybarWidget>
   );
