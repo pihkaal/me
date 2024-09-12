@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { type InnerKittyProps } from "~/utils/types";
 import { CHAR_WIDTH } from "../Kitty";
 import { useKitty } from "~/hooks/useKitty";
-import { platform } from "os";
 
 export const Cava = (props: { animate: boolean }) => {
   const kitty = useKitty();
