@@ -115,11 +115,16 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
         const analyserNode = audioContext.createAnalyser();
         analyserNode.fftSize = 256;
 
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = 0;
+
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
         source.loop = true;
+
         source.connect(analyserNode);
-        analyserNode.connect(audioContext.destination);
+        analyserNode.connect(gainNode);
+        gainNode.connect(audioContext.destination);
 
         analyserRef.current = analyserNode;
         sourceRef.current = source;
