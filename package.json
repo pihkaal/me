@@ -1,6 +1,7 @@
 {
   "name": "pihkaal.me",
   "version": "0.1.0",
+  "description": "My personal website",
   "private": true,
   "type": "module",
   "scripts": {
