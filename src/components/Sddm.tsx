@@ -50,7 +50,7 @@ export const Sddm = () => {
           Math.random() > 0.15;
         setPassword(Math.max(0, password + (canType ? 1 : -1)));
       },
-      password === 0 ? 1000 : Math.random() * 250 + 100,
+      password === 0 ? 3000 : Math.random() * 250 + 100,
     );
     return () => clearTimeout(timeout);
   }, [password]);
