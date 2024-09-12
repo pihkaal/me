@@ -26,7 +26,7 @@ const config = {
       animation: {
         fadeOut: "fadeOut 250ms ease-out forwards",
         breathing: "breathing 4s ease-in-out infinite",
-        disappear: "disappear 750ms ease-out forwards",
+        disappear: "disappear 750ms ease-in-out forwards",
       },
       fontSize: {
         sm: "0.8rem",
