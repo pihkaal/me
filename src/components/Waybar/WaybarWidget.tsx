@@ -6,6 +6,7 @@ export const WaybarWidget = (props: {
   tooltip?: ReactNode;
   interactable?: boolean;
   children: ReactNode;
+  onClick?: () => void;
 }) => {
   const [tooltipPosition, setTooltipPosition] = useState<{
     x: number;
@@ -42,6 +43,7 @@ export const WaybarWidget = (props: {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouveMove}
       onMouseLeave={handleMouseLeave}
+      onClick={props.onClick}
     >
       {props.children}
       {props.tooltip && tooltipPosition && tooltipVisible && (

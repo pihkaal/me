@@ -5,8 +5,12 @@ export const WaybarLockWidget = () => {
   const { setState } = useApp();
 
   return (
-    <WaybarWidget className="pl-3 pr-[0.625rem]" interactable>
-      <button onClick={() => setState("login")}></button>
+    <WaybarWidget
+      className="pl-3 pr-[0.625rem]"
+      onClick={() => setState("login")}
+      interactable
+    >
+      <button></button>
     </WaybarWidget>
   );
 };
