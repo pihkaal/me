@@ -48,6 +48,14 @@ export const ICONS: Record<string, Icon> = {
     char: "󰊤 ",
     color: "#ffffff",
   },
+  LinkedIn: {
+    char: " ",
+    color: "#0077b5",
+  },
+  CodinGame: {
+    char: " ",
+    color: "#f1c40f",
+  },
 };
 
 export const DEFAULT_ICON = { char: "󰈚 ", color: "#f599ae" };
