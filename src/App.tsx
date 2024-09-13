@@ -33,12 +33,12 @@ const AppRoot = () => {
           <Sddm />
         ) : (
           <div className="h-full flex-col">
-            <div className="relative z-10 px-2 py-2">
+            <div className="relative z-10 p-1 md:p-2">
               <Waybar />
             </div>
 
-            <div className="relative flex h-[calc(100%-50px)] w-full flex-col">
-              <Kitty className="w-full flex-1 pb-1 pl-2 pr-2 pt-1">
+            <div className="relative flex h-[calc(100svh-39px)] w-full flex-col md:h-[calc(100svh-50px)]">
+              <Kitty className="w-full flex-1 px-1 pt-1 md:px-2 md:pb-1">
                 <Nvim />
               </Kitty>
 

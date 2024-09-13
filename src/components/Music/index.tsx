@@ -67,7 +67,7 @@ export const Music = () => {
     <div className="flex flex-row pb-1">
       <Kitty
         className={cn(
-          "h-full pb-2 pl-2 pr-1 pt-1",
+          "h-full pb-1.5 pl-1 pr-1 pt-1 md:px-2",
           screenWidth < 900 ? "w-full" : "w-1/2",
         )}
         rows={5}
