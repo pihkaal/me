@@ -107,7 +107,7 @@ const InnerCava = (props: InnerKittyProps<typeof Cava>) => {
         const audioContext = new AudioContext();
         audioContextRef.current = audioContext;
 
-        const response = await fetch("/audio/mesmerizing_galaxy.mp3");
+        const response = await fetch("/audio/music.mp3");
         const arrayBuffer = await response.arrayBuffer();
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
