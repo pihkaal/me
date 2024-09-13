@@ -91,6 +91,18 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
     .write(timeStringLeft - fillSize, timeString)
     .toString();
 
+  let titleAndArtist = `${
+    props.playing.item.name
+  } · ${props.playing.item.artists.map((a) => a.name).join(", ")}`;
+  if (titleAndArtist.length > props.cols - 4) {
+    titleAndArtist = titleAndArtist.slice(0, props.cols - 7) + "...";
+  }
+
+  let album = props.playing.item.album.name;
+  if (album.length > props.cols - 2) {
+    album = album.slice(0, props.cols - 5) + "...";
+  }
+
   return (
     <>
       {/* title */}
@@ -131,11 +143,10 @@ const InnerSpotifyPlayer = (props: InnerKittyProps<typeof SpotifyPlayer>) => {
           <span className="font-normal">
             {false ? "\udb81\udc0a " : "\udb80\udfe4 "}
           </span>
-          {props.playing.item.name} ·{" "}
-          {props.playing.item.artists.map((a) => a.name).join(", ")}
+          {titleAndArtist}
         </span>
         <br />
-        <span className="text-color3">{props.playing.item.album.name}</span>
+        <span className="text-color3">{album}</span>
         <br />
         <div className="relative font-extrabold">
           <span className="bg-color2 text-color8">{fill}</span>
