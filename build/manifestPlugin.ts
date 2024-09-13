@@ -4,6 +4,7 @@ import { spawnSync } from "child_process";
 import { Octokit, RestEndpointMethodTypes } from "@octokit/rest";
 import { env } from "./env";
 import { existsSync } from "fs";
+import showdown from "showdown";
 
 type Manifest = {
   files: string[];
@@ -75,6 +76,9 @@ export const manifest = (): Plugin => ({
       await getRepoFileContent("pihkaal", "manifest.json"),
     ) as Manifest;
 
+    showdown.setFlavor("github");
+    const converter = new showdown.Converter();
+
     const projects: Array<Project> = [];
     for (const project of manifest.projects) {
       const { data: repo } = await octokit.repos.get({
@@ -83,9 +87,11 @@ export const manifest = (): Plugin => ({
       });
       const content = await getRepoFileContent(project, "README.md");
 
+      const html = converter.makeHtml(content);
+
       projects.push({
         name: project,
-        content,
+        content: html,
         language: repo.language,
         url: repo.url,
         private: repo.private,
@@ -95,10 +101,11 @@ export const manifest = (): Plugin => ({
     const files: Array<File> = [];
     for (const file of manifest.files) {
       const content = await getRepoFileContent("pihkaal", file);
+      const html = converter.makeHtml(content);
 
       files.push({
         name: file,
-        content,
+        content: html,
       });
     }
 

@@ -20,6 +20,15 @@ export const NvimEditor = (props: { content: string | undefined }) => {
   }
 
   return (
+    <div className="flex w-full justify-center">
+      <div
+        className="plain-html"
+        dangerouslySetInnerHTML={{ __html: props.content ?? "" }}
+      />
+    </div>
+  );
+
+  return (
     <table>
       <tbody>
         {rows.map((row, i) => (

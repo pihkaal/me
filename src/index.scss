@@ -59,4 +59,62 @@ body {
     scrollbar-width: thin;
     scrollbar-color: #f7ddd9 transparent;
   }
+
+  .plain-html {
+    @apply w-full whitespace-normal px-10 py-1 xl:w-2/3 2xl:w-3/5;
+
+    & img {
+      @apply inline;
+    }
+
+    & p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      @apply m-[revert];
+      font-size: revert;
+      font-weight: revert;
+    }
+
+    & p {
+      font-size: 0.8em;
+    }
+
+    & h1 {
+      @apply text-[2rem] font-bold;
+
+      & img {
+        @apply mb-4;
+      }
+    }
+
+    & h2 {
+      @apply text-2xl;
+    }
+
+    & a:not(:has(img)) {
+      @apply text-[#4493f8] underline underline-offset-2;
+    }
+
+    & h2::before {
+      content: "# ";
+    }
+
+    & h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      & a {
+        @apply no-underline;
+      }
+    }
+
+    & h1,
+    h2 {
+      @apply border-b border-[#5d646da3] pb-3;
+    }
+  }
 }

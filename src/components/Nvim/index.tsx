@@ -47,8 +47,6 @@ const InnerNvimTree = (props: InnerKittyProps<typeof Nvim>) => {
         style={{
           gridArea: "1 / 2 / 1 / 3",
           overflowY: "auto",
-          wordWrap: "break-word",
-          scrollSnapType: "inline",
         }}
       >
         <NvimEditor content={activeChild?.content} />

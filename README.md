@@ -6,7 +6,7 @@
     <br>
 </h1>
 
-<h4 align="center">Source code of <a href="https://pihkaal.me">my personnal website</a>.</h4>
+<h4 align="center">My <a href="https://pihkaal.me">personnal website</a>.</h4>
 
 <p align="center">
     <a href="https://vitejs.dev">
@@ -20,7 +20,7 @@
     </a>
 </p>
 
-<p align="center">
+<p align="center" id="links">
     <a href="https://pihkaal.me">Visit it</a> •
     <a href="#license">License</a>
 </p>
