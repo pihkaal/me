@@ -91,10 +91,15 @@ export const manifest = (): Plugin => ({
       // that's honestly not really clean but it does exactly what i need
 
       if (!repo.private) {
-        html = html.replace(
-          'id="links">',
-          `><a href=\"https://github.com/pihkaal/${project}\">Repo</a> •`,
-        );
+        const repoLink = `https://github.com/pihkaal/${project}`;
+        if (html.includes('id="links')) {
+          html = html.replace(
+            'id="links">',
+            `><a href=\"${repoLink}\">Repo</a> •`,
+          );
+        } else {
+          html = html += `<br>\n<a href="${repoLink}">Github repo</>`;
+        }
       }
 
       html = html
