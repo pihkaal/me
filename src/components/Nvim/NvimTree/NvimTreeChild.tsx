@@ -16,21 +16,17 @@ export const NvimTreeChild = (props: {
   const handleClick = () => {
     props.onSelect(props.y);
 
-    if (lastClick) {
-      if (Date.now() - lastClick <= 500) {
-        props.onOpen(props.child);
-      }
-
-      setLastClick(undefined);
-    } else {
-      setLastClick(Date.now());
+    if (lastClick && Date.now() - lastClick <= 500) {
+      props.onOpen(props.child);
     }
+
+    setLastClick(Date.now());
   };
 
   return (
     <li
       style={{ background: props.selected ? "#504651" : "" }}
-      onMouseDown={handleClick}
+      onClick={handleClick}
     >
       {"  "}
       {props.inDirectory && (
