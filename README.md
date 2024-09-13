@@ -21,6 +21,7 @@
 </p>
 
 <p align="center" id="links">
+    <a href="#description">Description</a> •
     <a href="https://pihkaal.me">Visit it</a> •
     <a href="#license">License</a>
 </p>
