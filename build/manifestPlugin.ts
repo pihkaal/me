@@ -86,8 +86,23 @@ export const manifest = (): Plugin => ({
         repo: project,
       });
       const content = await getRepoFileContent(project, "README.md");
+      let html = converter.makeHtml(content);
 
-      const html = converter.makeHtml(content);
+      // that's honestly not really clean but it does exactly what i need
+
+      if (!repo.private) {
+        html = html.replace(
+          'id="links">',
+          `><a href=\"https://github.com/pihkaal/${project}\">Repo</a> •`,
+        );
+      }
+
+      html = html
+        .replace(new RegExp('href="https', "g"), 'target="_blank" href="https')
+        .replace(
+          new RegExp('target="_blank" href="https://pihkaal.me', "g"),
+          'href="#',
+        );
 
       projects.push({
         name: project,
