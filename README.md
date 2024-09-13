@@ -1,6 +1,6 @@
 <h1 align="center">
     <br>
-    <img src="./assets/thumbnail.png" alt="Pihkaal Profile Picture" width="200">
+    <img src="https://i.imgur.com/8xRqYCS.png" alt="Pihkaal Profile Picture" width="200">
     <br>
     pihkaal.me
     <br>
@@ -24,6 +24,12 @@
     <a href="https://pihkaal.me">Visit it</a> •
     <a href="#license">License</a>
 </p>
+
+<br>
+
+## Description
+
+This is my personnal website, built with Vite, React and TypeScript. It's the recreation of my desktop, with [neovim](https://neovim.io/), [spotify-player](https://github.com/aome510/spotify-player) (that is synchronized with my spotify activity), and [cava](https://github.com/karlstav/cava).
 
 <br>
 
