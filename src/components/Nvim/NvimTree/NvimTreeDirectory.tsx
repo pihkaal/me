@@ -13,15 +13,11 @@ export const NvimTreeDirectory = (props: {
   const handleClick = () => {
     props.onSelect(props.y);
 
-    if (lastClick) {
-      if (Date.now() - lastClick <= 500) {
-        props.onOpen(props.directory);
-      }
-
-      setLastClick(undefined);
-    } else {
-      setLastClick(Date.now());
+    if (lastClick && Date.now() - lastClick <= 500) {
+      props.onOpen(props.directory);
     }
+
+    setLastClick(Date.now());
   };
 
   return (
