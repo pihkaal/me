@@ -95,6 +95,10 @@ export const NvimTree = (
   }
 
   useEffect(() => {
+    const readme = files.find((file) => file.name === "README.md") as Child;
+    props.onOpen(readme);
+    setSelectedY(files.indexOf(readme));
+
     const onScroll = (event: KeyboardEvent) => {
       if (activeKitty !== props.id) return;
       switch (event.key) {
@@ -122,7 +126,7 @@ export const NvimTree = (
     return () => {
       window.removeEventListener("keydown", onScroll);
     };
-  });
+  }, []);
 
   return (
     <div className="h-full select-none bg-[#0000001a]">
