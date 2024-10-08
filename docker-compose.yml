@@ -1,8 +1,9 @@
 services:
   pihkaal-me:
-    build: .
-    environment:
-      - GH_PAT
+    build:
+      context: .
+      args:
+        - GH_PAT
     networks:
       - web
     labels:

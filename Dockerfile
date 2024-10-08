@@ -1,7 +1,11 @@
 FROM node:20-slim AS base
 
+ARG GH_PAT
+
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV GH_PAT="$GH_PAT"
+
 RUN corepack enable
 
 COPY . /app
