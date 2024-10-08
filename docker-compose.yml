@@ -1,0 +1,18 @@
+services:
+  pihkaal-me:
+    build: .
+    environment:
+      - GH_PAT
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihkaal-me.rule=Host(`pihkaal.me`)"
+      - "traefik.http.routers.pihkaal-me.service=pihkaal-me"
+      - "traefik.http.services.pihkaal-me.loadbalancer.server.port=3000"
+      - "traefik.http.routers.pihkaal-me.tls=true"
+      - "traefik.http.routers.pihkaal-me.tls.certResolver=myresolver"
+
+networks:
+  web:
+    external: true
