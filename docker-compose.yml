@@ -1,9 +1,6 @@
 services:
   pihkaal-me:
-    build:
-      context: .
-      args:
-        - GH_PAT
+    image: pihkaal/me:latest
     networks:
       - web
     labels:
