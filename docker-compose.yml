@@ -10,6 +10,7 @@ services:
       - "traefik.http.services.pihkaal-me.loadbalancer.server.port=80"
       - "traefik.http.routers.pihkaal-me.tls=true"
       - "traefik.http.routers.pihkaal-me.tls.certResolver=myresolver"
+    restart: always
 
 networks:
   web:
